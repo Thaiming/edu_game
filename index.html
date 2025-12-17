@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="🏫 나의 학교 본캐 찾기 - 김영곤의 책임교육">
+    <meta property="og:description" content="MBTI보다 재밌는 본캐 찾기! 내 학교 생활 유형과 꿈 응원 인증서를 확인해보세요.">
+    <title>나의 학교 본캐 찾기 - 김영곤의 책임교육</title>
+    <style>
+        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: #f4f7fa; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #333; }
+        .container { width: 100%; max-width: 480px; background-color: white; padding: 30px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); text-align: center; box-sizing: border-box; }
+        
+        .main-emoji { font-size: 80px; margin-bottom: 10px; display: block; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        
+        h1 { color: #0056b3; margin-top: 10px; font-size: 28px; line-height: 1.3; }
+        .sub-desc { color: #555; font-size: 16px; margin-bottom: 30px; line-height: 1.6; }
+        .highlight { color: #0056b3; font-weight: bold; background: linear-gradient(transparent 70%, #ddebff 30%); }
+
+        .certificate-box {
+            border: 2px solid #0056b3; padding: 30px 20px; background-color: #fff;
+            position: relative; margin-bottom: 25px; border-radius: 5px;
+            box-shadow: inset 0 0 0 10px #fff, inset 0 0 0 12px #0056b3;
+        }
+        .cert-header { font-size: 26px; font-weight: 800; color: #0056b3; margin-bottom: 25px; letter-spacing: 3px; }
+        .cert-name { font-size: 18px; margin-bottom: 20px; }
+        .cert-name b { font-size: 22px; border-bottom: 2px solid #0056b3; padding: 0 8px; }
+        .character-emoji { font-size: 75px; margin-bottom: 15px; display: block; }
+        .result-title { font-size: 22px; font-weight: bold; color: #0056b3; margin-bottom: 15px; }
+        .result-desc { font-size: 15px; color: #444; line-height: 1.8; text-align: left; background: #f8f9fa; padding: 15px; border-radius: 10px; }
+        .campaign-promise { font-size: 14px; color: #004085; font-weight: 600; text-align: left; border-left: 4px solid #ffc107; padding-left: 15px; margin-top: 20px; }
+
+        .cert-footer { text-align: center; margin-top: 35px; font-size: 18px; font-weight: bold; position: relative; border-top: 1px solid #eee; padding-top: 20px; }
+        .stamp {
+            width: 70px; height: 70px; border: 3px solid #d32f2f; border-radius: 50%; color: #d32f2f;
+            display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900;
+            position: absolute; right: 2%; top: -10px; transform: rotate(-12deg); background-color: rgba(211, 47, 47, 0.05); line-height: 1.2;
+        }
+
+        .btn-group { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
+        .btn { display: block; width: 100%; max-width: 380px; padding: 16px; margin: 0 auto; border: none; border-radius: 15px; font-size: 17px; font-weight: bold; cursor: pointer; transition: 0.3s; box-sizing: border-box; text-decoration: none; line-height: 1.2; }
+        .btn-start { background-color: #0056b3; color: white; }
+        .btn-answer { background-color: #ffffff; color: #333; border: 2px solid #eef2f6; max-width: 100%; }
+        .btn-answer:hover { border-color: #0056b3; background-color: #f0f7ff; color: #0056b3; }
+        .btn-link { background-color: #0056b3; color: white; box-shadow: 0 4px 12px rgba(0,86,179,0.2); }
+        .btn-share { background-color: #ffc107; color: #333; }
+        
+        .page { display: none; }
+        .active { display: block; }
+        .progress-bar { width: 100%; height: 10px; background-color: #eee; border-radius: 5px; margin-bottom: 30px; overflow: hidden; }
+        .progress-fill { height: 100%; background-color: #0056b3; width: 0%; transition: width 0.3s; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="start-page" class="page active">
+            <span class="main-emoji">🎒</span>
+            <h1>나의 학교 본캐 찾기</h1>
+            <p class="sub-desc">
+                MBTI보다 정확하다?! <br>
+                학교에서의 내 모습은 어떤 유형일까?<br><br>
+                <span class="highlight">나의 숨겨진 잠재력</span>을 분석하고<br>
+                꿈 응원 인증서를 받아보세요!
+            </p>
+            <button class="btn btn-start" onclick="startTest()">지금 바로 확인하기 ⚡️</button>
+            <p style="font-size:12px; color:#aaa; margin-top:15px;">with 김영곤의 책임교육</p>
+        </div>
+
+        <div id="question-page" class="page">
+            <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+            <h2 id="question-text" style="font-size: 20px; min-height: 70px;">질문 로딩중...</h2>
+            <div id="answers-area" class="btn-group"></div>
+        </div>
+
+        <div id="loading-page" class="page">
+            <div class="character-emoji">✨</div>
+            <h2 style="color:#0056b3;">당신의 빛나는 잠재력을<br>분석하고 있습니다...</h2>
+            <p style="color:#666;">김영곤의 책임교육이 당신과 함께합니다.</p>
+        </div>
+
+        <div id="result-page" class="page">
+            <div class="certificate-box">
+                <div class="cert-header">꿈 응원 인증서</div>
+                <div class="cert-name">유형: <b id="cert-type-display"></b></div>
+                <span class="character-emoji" id="cert-emoji"></span>
+                <div class="result-title" id="cert-title"></div>
+                <div class="result-desc" id="cert-desc"></div>
+                <div class="campaign-promise" id="cert-promise"></div>
+                <div class="cert-footer">
+                    당신의 내일을 응원합니다 <br>
+                    <span style="font-size:24px; letter-spacing: 2px;">김 영 곤</span>
+                    <div class="stamp">책임교육<br>김영곤인</div>
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                <a href="https://blog.naver.com/younggonk6" target="_blank" class="btn btn-link">김영곤의 책임교육 더 알아보기</a>
+                <button class="btn btn-share" onclick="handleShare()">📢 내 결과 친구에게 알리기</button>
+            </div>
+            
+            <button onclick="location.reload()" style="background:none; border:none; color:#bbb; cursor:pointer; margin-top:15px; font-size:13px;">테스트 다시하기</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "등굣길, 교문 앞에 선 당신의 기분은?", answers: ["새로운 만남이 설레고 기대돼요! ✨", "어떤 일이 생길지 조용히 관찰해요 🧐", "오늘 급식이 뭔지부터 생각나요 🍱", "해야 할 공부 계획을 미리 점검해요 📝"], type: "EI" },
+            { q: "친구가 고민을 털어놓으며 눈물을 보인다면?", answers: ["아무 말 없이 꽉 안아주며 같이 울어요 😢", "충분히 들어준 뒤 실질적인 도움을 줘요 🤝", "기분 전환을 위해 재미있는 얘길 꺼내요 🍭", "상황을 분석해서 조심스럽게 조언해요 🧠"], type: "TF" },
+            { q: "누군가 부당한 행동을 하는 것을 보았다면?", answers: ["용기 있게 나서서 '아니오'라고 말해요! 📢", "주변 친구들과 힘을 모아 해결책을 찾아요 👥", "상처받지 않게 우회적으로 설득해요 🕊️", "질서를 바로잡기 위해 선생님께 알릴게요 👨‍🏫"], type: "EI" },
+            { q: "학교에서 가장 행복한 순간은 언제인가요?", answers: ["친구들과 하하호호 떠들며 웃을 때 😂", "내가 좋아하는 것을 깊이 파고들 때 🔍", "어려운 문제를 끝내 해결했을 때 💡", "예쁘고 정돈된 환경에서 공부할 때 🌿"], type: "TF" },
+            { q: "내가 생각하는 '더 좋은 학교'란 어떤 곳인가요?", answers: ["모두가 축제처럼 즐겁게 소통하는 학교 🎈", "단 한 명도 소외되지 않고 따뜻한 학교 🏠", "최고의 기술로 앞서 나가는 학교 🚀", "각자의 재능을 끝까지 책임져주는 학교 🎖️"], type: "EI" }
+        ];
+
+        let currentStep = 0, scoreE = 0, scoreF = 0;
+
+        function startTest() {
+            document.getElementById('start-page').classList.remove('active');
+            document.getElementById('question-page').classList.add('active');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = questions[currentStep];
+            document.getElementById('question-text').innerText = q.q;
+            const area = document.getElementById('answers-area');
+            area.innerHTML = '';
+            q.answers.forEach((ans, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-answer';
+                btn.innerText = ans;
+                btn.onclick = () => {
+                    if(q.type === 'EI' && i % 2 === 0) scoreE++;
+                    if(q.type === 'TF' && i % 2 === 0) scoreF++;
+                    currentStep++;
+                    if(currentStep < questions.length) showQuestion();
+                    else showLoading();
+                };
+                area.appendChild(btn);
+            });
+            document.getElementById('progress').style.width = ((currentStep + 1) / questions.length * 100) + '%';
+        }
+
+        function showLoading() {
+            document.getElementById('question-page').classList.remove('active');
+            document.getElementById('loading-page').classList.add('active');
+            setTimeout(showResult, 1500);
+        }
+
+        function showResult() {
+            document.getElementById('loading-page').classList.remove('active');
+            document.getElementById('result-page').classList.add('active');
+            let t, d, e, p;
+            const isE = scoreE >= 2, isF = scoreF >= 1;
+            if (isE && isF) {
+                e="💖"; t="빛나는 공감가"; d="당신은 존재만으로도 교실에 온기를 불어넣는 비타민 같은 사람입니다. 친구들의 마음을 먼저 느끼고 웃음을 찾아주는 당신의 다정함은 학교를 지탱하는 가장 큰 힘입니다.";
+                p="김영곤의 책임교육 약속: <br>당신의 선한 에너지가 꺾이지 않도록, 서로 존중하고 웃음이 끊이지 않는 '인성 중심 학교'를 만들겠습니다.";
+            } else if (isE) {
+                e="🦁"; t="용기 있는 개척자"; d="잘못된 것에 목소리를 낼 줄 알고, 목표를 향해 앞장서는 당신의 용기가 멋집니다. 세상을 바꾸는 큰 물결은 항상 당신 같은 사람의 첫걸음에서 시작됩니다.";
+                p="김영곤의 책임교육 약속: <br>당신의 열정이 길을 잃지 않도록, 실패를 두려워 않고 꿈에 도전할 수 있는 '책임 성장을 위한 교육 환경'을 확실히 만들겠습니다.";
+            } else if (isF) {
+                e="🛡️"; t="따뜻한 수호자"; d="겉으로 드러내지 않아도 깊은 속정으로 모두를 챙기는 당신이 있어 학교는 집처럼 따뜻해집니다. 당신의 세심한 배려가 더 빛날 수 있도록 곁을 지키고 싶습니다.";
+                p="김영곤의 책임교육 약속: <br>당신처럼 성실하고 다정한 아이들이 상처받지 않게, '단 한 명도 소외되지 않는 세밀한 교육 복지'를 실현하겠습니다.";
+            } else {
+                e="🎓"; t="지혜로운 관찰자"; d="본질을 꿰뚫어 보고 미래를 준비하는 당신의 지혜가 놀랍습니다. 당신의 통찰력은 앞으로 다가올 거대한 변화를 이끌 핵심 자산입니다.";
+                p="김영곤의 책임교육 약속: <br>당신의 지적 호기심이 마음껏 펼쳐지도록, 전 세계 어디서든 앞서나갈 수 있는 '최첨단 미래 교육'을 확실히 책임지겠습니다.";
+            }
+            document.getElementById('cert-type-display').innerText = t;
+            document.getElementById('cert-emoji').innerText = e;
+            document.getElementById('cert-title').innerText = t;
+            document.getElementById('cert-desc').innerText = d;
+            document.getElementById('cert-promise').innerHTML = p;
+        }
+
+        function handleShare() {
+            const txt = `내 학교 본캐는 [${document.getElementById('cert-type-display').innerText}]! 김영곤의 책임교육 인증서도 확인해봐!`;
+            if (navigator.share) { navigator.share({ title: '본캐 인증서', text: txt, url: window.location.href }); }
+            else { 
+                const t = document.createElement("textarea"); document.body.appendChild(t); t.value = window.location.href; t.select(); document.execCommand('copy'); document.body.removeChild(t);
+                alert("🔗 링크가 복사되었습니다!\n\n인증서 사진은 '캡처'해서 공유하시고,\n이 링크는 지인들에게 '붙여넣기'로 전달해주세요! ✨");
+            }
+        }
+    </script>
+</body>
+</html>
