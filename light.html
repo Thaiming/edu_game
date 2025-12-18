@@ -2,17 +2,17 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교육 히어로: 잃어버린 미래를 찾아서 - 김영곤</title>
+    <title>교육 히어로: 잃어버린 미래를 찾아서</title>
     <style>
-        body { background: #111; color: white; margin: 0; font-family: 'Pretendard', sans-serif; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
-        #game-container { position: relative; border: 4px solid #ffd700; background: #000; overflow: hidden; }
-        canvas { display: block; background: #222; }
-        #ui { position: absolute; top: 10px; width: 100%; text-align: center; pointer-events: none; }
-        .msg-box { background: rgba(0,0,0,0.7); padding: 10px; border-radius: 5px; font-size: 1.2rem; border: 1px solid #ffd700; display: inline-block; }
-        #gauge-container { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 300px; height: 20px; border: 2px solid #fff; }
-        #gauge-bar { width: 0%; height: 100%; background: #ffd700; transition: width 0.2s; }
-        .btn-start { padding: 15px 30px; font-size: 1.5rem; cursor: pointer; background: #ffd700; border: none; font-weight: bold; }
+        body { background: #111; color: white; margin: 0; font-family: 'Pretendard', sans-serif; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100vh; }
+        #game-container { position: relative; width: 800px; height: 450px; border: 4px solid #ffd700; background: #222; box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+        canvas { display: block; }
+        #ui { position: absolute; top: 20px; width: 100%; text-align: center; pointer-events: none; }
+        .msg-box { background: rgba(0,0,0,0.8); padding: 15px; border-radius: 8px; font-size: 1.1rem; border: 1px solid #ffd700; line-height: 1.5; }
+        #gauge-wrapper { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 400px; }
+        #gauge-container { height: 15px; border: 2px solid #fff; background: #333; }
+        #gauge-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #ffd700, #fff); transition: width 0.1s; }
+        .label { font-size: 0.8rem; margin-bottom: 5px; color: #ffd700; text-align: center; }
     </style>
 </head>
 <body>
@@ -20,10 +20,11 @@
     <div id="game-container">
         <canvas id="gameCanvas" width="800" height="450"></canvas>
         <div id="ui">
-            <div id="msg" class="msg-box">화면을 클릭하여 인트로를 시작하세요</div>
+            <div id="msg" class="msg-box">클릭하여 미래를 찾는 여정을 시작하세요</div>
         </div>
-        <div id="gauge-container">
-            <div id="gauge-bar"></div>
+        <div id="gauge-wrapper">
+            <div class="label">정책 실행 에너지</div>
+            <div id="gauge-container"><div id="gauge-bar"></div></div>
         </div>
     </div>
 
@@ -33,103 +34,94 @@
         const msgEl = document.getElementById('msg');
         const gaugeBar = document.getElementById('gauge-bar');
 
-        let gameState = 'INTRO'; 
-        let currentIntroStep = 0;
-        let currentStage = 0;
-        let gauge = 0;
+        let state = 'INTRO';
+        let step = 0;
+        let stageIdx = 0;
+        let bossHP = 100;
 
-        const introStory = [
-            "대한민국의 '희망의 시계탑'이 멈췄습니다.",
-            "차별과 낡은 관성의 안개가 아이들의 미래를 가렸습니다.",
-            "김영곤: '더 이상 아이들의 미래를 빼앗기게 둘 수 없습니다.'",
-            "이제, 잃어버린 미래를 찾기 위한 참교육이 시작됩니다!"
+        const story = [
+            "대한민국 교육의 '희망의 시계탑'이 멈췄습니다.",
+            "차별과 낡은 관성이 아이들의 미래를 흑백으로 만들었습니다.",
+            "김영곤: \"더 이상 아이들의 꿈이 갇혀있게 두지 않겠습니다.\"",
+            "이제 낡은 벽을 허물고, 잃어버린 미래를 되찾으러 갑니다!"
         ];
 
         const stages = [
-            { name: "격차의 마녀 '디바이드'", hp: 100, color: "#e74c3c", bossMsg: "부모 재력이 곧 실력이다!", skill: "기회균등 어퍼컷!" },
-            { name: "획일화의 거인 '모노'", hp: 150, color: "#95a5a6", bossMsg: "전부 똑같은 정답만 외워라!", skill: "개성해방 소닉붐!" },
-            { name: "관성의 대마왕 '올드원'", hp: 200, color: "#2c3e50", bossMsg: "바꿔봐야 소용없어, 늘 그래왔으니까!", skill: "미래교육 그랜드 슬램!" }
+            { name: "격차의 마녀 '디바이드'", boss: "부모 재력이 곧 실력이다!", skill: "기회균등 어퍼컷", color: "#e74c3c" },
+            { name: "획일화의 거인 '모노'", boss: "전부 똑같은 것만 배워라!", skill: "개성해방 소닉붐", color: "#95a5a6" },
+            { name: "관성의 대마왕 '올드원'", boss: "바꿔봐야 소용없다!", skill: "미래교육 그랜드 슬램", color: "#2c3e50" }
         ];
 
-        function drawPlayer(x, y) {
-            ctx.fillStyle = "#3498db"; // 김영곤 후보 상징색
-            ctx.fillRect(x, y, 60, 100);
-            ctx.fillStyle = "white";
-            ctx.font = "16px Arial";
-            ctx.fillText("김영곤", x + 5, y - 10);
-        }
-
-        function drawVillain(villain) {
-            ctx.fillStyle = villain.color;
-            ctx.fillRect(600, 200, 100, 150);
-            ctx.fillStyle = "white";
-            ctx.fillText(villain.name, 600, 180);
-            ctx.fillText(`HP: ${villain.hp}`, 630, 370);
-        }
-
-        function loop() {
+        function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            if (gameState === 'INTRO') {
+            if (state === 'INTRO') {
                 ctx.fillStyle = "#111";
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
-                msgEl.innerText = introStory[currentIntroStep];
+                msgEl.innerText = story[step];
             } 
-            else if (gameState === 'PLAY') {
-                drawPlayer(100, 250);
-                let v = stages[currentStage];
-                drawVillain(v);
-                msgEl.innerText = `[Stage ${currentStage + 1}] ${v.name}: "${v.bossMsg}" (A키로 공격!)`;
+            else if (state === 'PLAY') {
+                const s = stages[stageIdx];
+                // 배경 (스테이지별 색상 변화)
+                ctx.fillStyle = "#222";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // 후보님 캐릭터
+                ctx.fillStyle = "#3498db";
+                ctx.fillRect(100, 250, 60, 100); 
+                ctx.fillStyle = "white";
+                ctx.fillText("김영곤 후보", 100, 240);
+
+                // 빌런
+                ctx.fillStyle = s.color;
+                ctx.fillRect(600, 200, 100, 150);
+                ctx.fillStyle = "white";
+                ctx.fillText(s.name, 600, 180);
+                ctx.fillText(`HP: ${bossHP}`, 630, 370);
+
+                msgEl.innerText = `[Stage ${stageIdx+1}] ${s.name}: "${s.boss}" \n (A키를 연타하여 정책을 실행하세요!)`;
             }
-            else if (gameState === 'ENDING') {
+            else if (state === 'ENDING') {
                 ctx.fillStyle = "#ffd700";
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 ctx.fillStyle = "#000";
-                ctx.font = "bold 30px Arial";
                 ctx.textAlign = "center";
-                ctx.fillText("김영곤이 다시 시계탑을 돌렸습니다!", canvas.width/2, 200);
-                ctx.font = "20px Arial";
-                ctx.fillText("\"교육은 벽을 세우는 것이 아니라, 문을 여는 것입니다.\"", canvas.width/2, 260);
-                msgEl.innerText = "FIN: 아이들과 함께 웃는 후보님 (하이파이브!)";
+                ctx.font = "bold 25px Arial";
+                ctx.fillText("미래 교육의 문이 열렸습니다!", canvas.width/2, 200);
+                ctx.font = "18px Arial";
+                ctx.fillText("\"우리 아이들의 가능성, 김영곤이 지키겠습니다.\"", canvas.width/2, 250);
+                msgEl.innerText = "게임 클리어! 아이들의 웃음소리가 다시 들려옵니다.";
             }
-
-            requestAnimationFrame(loop);
+            requestAnimationFrame(draw);
         }
 
         window.addEventListener('mousedown', () => {
-            if (gameState === 'INTRO') {
-                currentIntroStep++;
-                if (currentIntroStep >= introStory.length) {
-                    gameState = 'PLAY';
+            if (state === 'INTRO') {
+                step++;
+                if (step >= story.length) {
+                    state = 'PLAY';
+                    bossHP = stages[stageIdx].hp || 100;
                 }
             }
         });
 
         window.addEventListener('keydown', (e) => {
-            if (gameState === 'PLAY' && e.key.toLowerCase() === 'a') {
-                attack();
+            if (state === 'PLAY' && e.key.toLowerCase() === 'a') {
+                bossHP -= 10;
+                let currentGauge = (1 - (bossHP / 100)) * 100;
+                gaugeBar.style.width = currentGauge + "%";
+
+                if (bossHP <= 0) {
+                    alert(`정화 성공! [${stages[stageIdx].skill}] 발동!`);
+                    stageIdx++;
+                    bossHP = 100;
+                    gaugeBar.style.width = "0%";
+                    if (stageIdx >= stages.length) state = 'ENDING';
+                }
             }
         });
 
-        function attack() {
-            let v = stages[currentStage];
-            v.hp -= 20;
-            gauge += 10;
-            if (gauge > 100) gauge = 100;
-            gaugeBar.style.width = gauge + "%";
-
-            if (v.hp <= 0) {
-                alert(`${v.skill} 적중! ${v.name}을 정화했습니다!`);
-                gauge = 0;
-                gaugeBar.style.width = "0%";
-                currentStage++;
-                if (currentStage >= stages.length) {
-                    gameState = 'ENDING';
-                }
-            }
-        }
-
-        loop();
+        draw();
     </script>
 </body>
 </html>
