@@ -6,93 +6,81 @@
     
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kim-young-gon.vercel.app/game.html">
-    <meta property="og:title" content="🎁 경남 교육 럭키박스! 행운을 뽑으세요!">
-    <meta property="og:description" content="김영곤 후보가 드리는 우리 아이 행운 공약!">
+    <meta property="og:title" content="🎁 [김영곤] 경남교육감 출마예정자의 행운권">
+    <meta property="og:description" content="김영곤이 드리는 우리 아이를 위한 행운의 공약!">
     <meta property="og:image" content="https://kim-young-gon.vercel.app/thumb.png">
 
-    <title>2026 경남 교육 럭키박스</title>
+    <title>경남교육감 출마예정자 김영곤</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; margin: 0; 
-            background: #fff0f5; /* 연한 마젠타빛 배경 */
-        }
-        .container {
-            background: #fff; border-radius: 20px; padding: 30px;
-            width: 90%; max-width: 450px; text-align: center;
-            box-shadow: 0 10px 25px rgba(255, 0, 255, 0.1); 
-            border: 4px solid #FF00FF; /* 메인 마젠타 테두리 */
-        }
-        .kim-img {
-            width: 110px; height: 110px; border-radius: 50%;
-            border: 4px solid #FF00FF; margin-bottom: 10px; object-fit: cover;
-            background: #fff;
-        }
-        h1 { font-size: 1.6em; color: #333; margin: 10px 0; }
-        .lucky-box {
-            width: 180px; height: 180px; margin: 20px auto;
-            background-image: url('thumb.png');
-            background-size: contain; background-repeat: no-repeat; background-position: center;
-            cursor: pointer; animation: bounce 2s infinite ease-in-out;
-        }
+        :root { --main-color: #FF00FF; }
+        body { font-family: 'Noto Sans KR', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #fff0f5; }
+        .container { background: #fff; border-radius: 20px; padding: 30px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 10px 25px rgba(255,0,255,0.1); border: 4px solid var(--main-color); }
+        
+        .badge { background: var(--main-color); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.85em; font-weight: bold; margin-bottom: 15px; display: inline-block; }
+        .kim-img { width: 120px; height: 120px; border-radius: 50%; border: 4px solid var(--main-color); margin-bottom: 15px; object-fit: cover; background: #fff; }
+        
+        h1 { font-size: 1.4em; color: #333; margin: 5px 0; line-height: 1.4; }
+        h1 span { color: var(--main-color); }
+
+        #game-screen, #result-area { display: none; }
+        
+        .lucky-box { width: 180px; height: 180px; margin: 20px auto; background-image: url('thumb.png'); background-size: contain; background-repeat: no-repeat; background-position: center; cursor: pointer; animation: bounce 2s infinite ease-in-out; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         
-        .result-area {
-            display: none; background: #fff9ff; border-radius: 15px;
-            padding: 20px; margin-top: 20px; border: 2px dashed #FF00FF;
-        }
-        .btn {
-            background: #FF00FF; color: white; border: none;
-            padding: 12px 25px; border-radius: 8px; cursor: pointer;
-            margin-top: 15px; font-weight: bold; font-size: 1em;
-            transition: transform 0.2s;
-        }
-        .btn:active { transform: scale(0.95); }
+        .btn { background: var(--main-color); color: white; border: none; padding: 15px 30px; border-radius: 50px; cursor: pointer; margin-top: 20px; font-weight: bold; font-size: 1.1em; width: 100%; }
         
-        strong { color: #FF00FF; } /* 강조 텍스트도 마젠타 */
+        .footer { margin-top: 20px; font-size: 0.8em; color: #888; border-top: 1px solid #eee; padding-top: 15px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="https://i.namu.wiki/i/LRkAzYUguwmvoGirz9HOxQrkfYeCdQ6xm3QMo5D2gwB31NQxTVJ5Nik7Bb1QxIgj6Bo5JtSxvqlJPEPyVoryyo7vTeXQXx9pX7KG03RjyU7ScfUaDrL-h2MAtc-2KayeYJ23euODNenZm2IRKISHaw.webp" alt="김영곤 후보" class="kim-img">
-        
-        <h1>경남 교육 럭키박스</h1>
-        <p>상자를 터치해 <strong>행운 공약</strong>을 확인하세요!</p>
+        <div id="start-screen">
+            <div class="badge">경남교육감 출마예정자</div>
+            <img src="https://i.namu.wiki/i/LRkAzYUguwmvoGirz9HOxQrkfYeCdQ6xm3QMo5D2gwB31NQxTVJ5Nik7Bb1QxIgj6Bo5JtSxvqlJPEPyVoryyo7vTeXQXx9pX7KG03RjyU7ScfUaDrL-h2MAtc-2KayeYJ23euODNenZm2IRKISHaw.webp" class="kim-img">
+            <h1>경남 교육의 기분 좋은 변화<br><span>김영곤</span>의 럭키박스</h1>
+            <p style="color:#666;">우리 아이를 위한 행운의 공약,<br>지금 바로 확인해보세요!</p>
+            <button class="btn" onclick="startGame()">럭키박스 열기 🎁</button>
+        </div>
 
-        <div class="lucky-box" id="luckyBox"></div>
+        <div id="game-screen">
+            <p style="font-weight: bold;">상자를 터치하면<br>공약 카드가 나타납니다!</p>
+            <div class="lucky-box" onclick="showResult()"></div>
+        </div>
 
-        <div class="result-area" id="resultArea">
-            <h2 id="resTitle" style="color:#FF00FF; margin-bottom:10px;"></h2>
-            <p id="resMsg" style="font-size: 1.2em; font-weight: bold; margin-bottom:15px;"></p>
-            <p id="resPolicy" style="color:#444; font-size: 0.95em; line-height:1.5; background:#fff; padding:10px; border-radius:8px;"></p>
+        <div id="result-area">
+            <h2 id="resTitle" style="color:var(--main-color);"></h2>
+            <p id="resMsg" style="font-size: 1.1em; font-weight: bold;"></p>
+            <div id="resPolicy" style="background:#f9f9f9; padding:15px; border-radius:10px; font-size:0.95em; text-align:left; line-height:1.6; border-left:4px solid var(--main-color);"></div>
             <button class="btn" onclick="location.reload()">다시 뽑기</button>
+        </div>
+
+        <div class="footer">
+            미래를 여는 경남교육, 김영곤이 함께합니다.
         </div>
     </div>
 
     <script>
-        const luckyBox = document.getElementById('luckyBox');
-        const resultArea = document.getElementById('resultArea');
-        const outcomes = [
-            { title: "🍀 AI 영재운", msg: "아이의 잠재력이 폭발할 운세!", policy: "김영곤은 [AI 영재교육원 신설]로 경남의 아이들을 글로벌 인재로 키우겠습니다." },
-            { title: "📈 학력 점프운", msg: "성적이 쑥쑥 올라가는 기분 좋은 예감!", policy: "김영곤은 [기초학력 보장 및 학력 격차 해소]로 단 한 명의 아이도 포기하지 않습니다." },
-            { title: "🚀 취업 탄탄운", msg: "지역 대기업 입사 각! 미래가 든든해집니다.", policy: "김영곤은 [지역 사업체 연계형 AI 인재 양성]으로 경남 청년의 일자리를 책임집니다." },
-            { title: "💖 책임 교육운", msg: "학부모님 걱정 끝! 학교가 울타리가 됩니다.", policy: "김영곤은 [공교육 책임제]를 통해 교육 격차 없는 경남을 만들겠습니다." },
-            { title: "🏫 명문 학교운", msg: "우리 동네에 특별한 학교가 생길 운세!", policy: "김영곤은 [자율형 사립고·영재고 등 다양한 교육 모델]을 과감히 도입하겠습니다." }
-        ];
+        function startGame() {
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('game-screen').style.display = 'block';
+        }
 
-        luckyBox.onclick = function() {
+        function showResult() {
+            const outcomes = [
+                { title: "🍀 AI 교육 행운", msg: "디지털 미래를 선점할 운세!", policy: "<strong>김영곤의 약속:</strong> [AI 영재교육원 건립]을 통해 경남의 아이들을 미래 산업의 주인공으로 키우겠습니다." },
+                { title: "📈 학력 신장 행운", msg: "실력이 쑥쑥 자라나는 행운!", policy: "<strong>김영곤의 약속:</strong> [기초학력 전담 시스템 구축]으로 모든 아이가 공부에 자신감을 갖는 경남을 만들겠습니다." },
+                { title: "🏫 안전 학교 행운", msg: "아이도 부모님도 안심하는 행운!", policy: "<strong>김영곤의 약속:</strong> [학교 안전망 강화] 및 [늘봄학교 내실화]를 통해 촘촘한 책임 교육을 실현하겠습니다." }
+            ];
             const pick = outcomes[Math.floor(Math.random() * outcomes.length)];
             document.getElementById('resTitle').innerText = pick.title;
             document.getElementById('resMsg').innerText = pick.msg;
-            document.getElementById('resPolicy').innerText = pick.policy;
+            document.getElementById('resPolicy').innerHTML = pick.policy;
             
-            luckyBox.style.display = 'none';
-            resultArea.style.display = 'block';
-        };
+            document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('result-area').style.display = 'block';
+        }
     </script>
-
 </body>
 </html>
