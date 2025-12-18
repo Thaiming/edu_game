@@ -7,39 +7,16 @@
     <style>
         :root { --danger: #ff4757; --gold: #ffd700; --hero: #007bff; }
         * { box-sizing: border-box; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
-        
-        body { 
-            background: #000; color: white; margin: 0; padding: 0;
-            font-family: 'Pretendard', sans-serif; 
-            display: flex; align-items: center; justify-content: center; 
-            height: 100vh; width: 100vw; overflow: hidden; touch-action: none;
-        }
-        
+        body { background: #000; color: white; margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; width: 100vw; overflow: hidden; touch-action: none; }
         #game-container { position: relative; width: 100%; height: 100%; background: #000; overflow: hidden; }
         canvas { display: block; width: 100%; height: 100%; }
-
-        /* 메시지 레이어: 가독성 극대화 */
-        #msg-overlay { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background: rgba(0,0,0,0.4); pointer-events: none; z-index: 200;
-        }
-        #text-box {
-            width: 85%; text-align: center; font-size: 1.4rem; font-weight: bold;
-            line-height: 1.6; text-shadow: 0 0 20px #000, 0 0 10px #000;
-        }
+        #msg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); pointer-events: none; z-index: 200; }
+        #text-box { width: 85%; text-align: center; font-size: 1.4rem; font-weight: bold; line-height: 1.6; text-shadow: 0 0 20px #000; }
         .sub-msg { font-size: 0.9rem; color: var(--gold); margin-top: 20px; animation: blink 1s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-
-        /* 체력바 */
-        #v-hp-container { 
-            position: absolute; top: env(safe-area-inset-top, 30px); left: 50%; transform: translateX(-50%);
-            width: 70%; height: 18px; border: 2px solid #fff; background: #333; 
-            border-radius: 10px; overflow: hidden; display: none; z-index: 100;
-        }
-        #v-hp-fill { height: 100%; background: linear-gradient(90deg, #ff4757, #ff6b81); width: 100%; transition: 0.1s; }
-
-        .damage { position: absolute; color: var(--gold); font-weight: 900; font-size: 2.2rem; animation: hit 0.4s ease-out forwards; pointer-events: none; z-index: 300; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        #v-hp-container { position: absolute; top: env(safe-area-inset-top, 30px); left: 50%; transform: translateX(-50%); width: 70%; height: 15px; border: 1px solid #fff; background: #333; border-radius: 10px; overflow: hidden; display: none; z-index: 100; }
+        #v-hp-fill { height: 100%; background: var(--danger); width: 100%; transition: 0.1s; }
+        .damage { position: absolute; color: var(--gold); font-weight: 900; font-size: 2.2rem; animation: hit 0.4s ease-out forwards; pointer-events: none; z-index: 300; text-shadow: 2px 2px 5px #000; }
         @keyframes hit { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: translateY(-60px) scale(1.5); } }
     </style>
 </head>
@@ -63,7 +40,10 @@
     const hpFill = document.getElementById('v-hp-fill');
     const container = document.getElementById('game-container');
 
-    const imgHero = new Image(); imgHero.src = 'ygk.png';
+    // --- [중요] 파일명 확인: ygk.png 또는 yhk.png로 맞춰주세요 ---
+    const HERO_IMG_SRC = 'ygk.png'; 
+
+    const imgHero = new Image(); imgHero.src = HERO_IMG_SRC;
     const imgV1 = new Image(); imgV1.src = 'v1.png';
     const imgV2 = new Image(); imgV2.src = 'v2.png';
     const imgV3 = new Image(); imgV3.src = 'v3.png';
@@ -71,7 +51,6 @@
     let state = 'INTRO', step = 0, stage = 0, hp = 100, shake = 0;
     let canvasW, canvasH;
 
-    // 후보님이 요청하신 경남교육 스토리 복구
     const story = [
         "경남교육의 심장부가 멈췄습니다.",
         "낡은 관성이 아이들의 미래를 가리고 있습니다.",
@@ -99,12 +78,22 @@
         if (shake > 0) shake *= 0.8;
 
         if (state === 'PLAY') {
-            // 왼쪽: 빌런
             const vw = canvasW * 0.45; const vh = vw * 1.3;
-            ctx.drawImage(villains[stage].img, (canvasW * 0.05) + sx, (canvasH * 0.35) + sy, vw, vh);
-            // 오른쪽: 김영곤 후보님
             const hw = canvasW * 0.45; const hh = hw * 1.5;
-            ctx.drawImage(imgHero, (canvasW * 0.5) + sx, (canvasH * 0.45) + sy, hw, hh);
+            
+            // 왼쪽: 빌런 (이미지 로드 완료 확인 후 그리기)
+            if(villains[stage].img.complete) {
+                ctx.drawImage(villains[stage].img, (canvasW * 0.05) + sx, (canvasH * 0.35) + sy, vw, vh);
+            } else {
+                ctx.fillStyle = "red"; ctx.fillRect((canvasW * 0.05) + sx, (canvasH * 0.35) + sy, vw, vh);
+            }
+
+            // 오른쪽: 김영곤 후보님 (이미지 로드 완료 확인 후 그리기)
+            if(imgHero.complete) {
+                ctx.drawImage(imgHero, (canvasW * 0.5) + sx, (canvasH * 0.45) + sy, hw, hh);
+            } else {
+                ctx.fillStyle = "blue"; ctx.fillRect((canvasW * 0.5) + sx, (canvasH * 0.45) + sy, hw, hh);
+            }
         }
         requestAnimationFrame(draw);
     }
@@ -126,19 +115,15 @@
     }
 
     function attack(e) {
-        hp -= 10;
-        shake = 15;
+        hp -= 10; shake = 15;
         hpFill.style.width = hp + "%";
-
         const dam = document.createElement('div');
         dam.className = 'damage'; dam.innerText = "경남교육!";
-        
-        let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        let clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        const rect = container.getBoundingClientRect();
-        
-        dam.style.left = (clientX - rect.left - 40) + 'px';
-        dam.style.top = (clientY - rect.top - 40) + 'px';
+        let cx = e.touches ? e.touches[0].clientX : e.clientX;
+        let cy = e.touches ? e.touches[0].clientY : e.clientY;
+        const r = container.getBoundingClientRect();
+        dam.style.left = (cx - r.left - 40) + 'px';
+        dam.style.top = (cy - r.top - 40) + 'px';
         container.appendChild(dam);
         setTimeout(() => dam.remove(), 400);
 
@@ -147,20 +132,14 @@
             stage++;
             if (stage >= 3) {
                 state = 'ENDING';
-                textEl.innerHTML = "<span style='color:var(--gold); font-size:1.6rem;'>경남교육 승리!<br>김영곤이 해냈습니다!</span>";
+                textEl.innerHTML = "<span style='color:var(--gold);'>경남교육 승리!<br>김영곤이 해냈습니다!</span>";
                 hpContainer.style.display = "none";
-            } else {
-                hp = 100; hpFill.style.width = "100%";
-            }
+            } else { hp = 100; hpFill.style.width = "100%"; }
         }
     }
 
-    // 터치와 클릭 이벤트를 가장 확실하게 잡는 방식
     container.onmousedown = (e) => handleInput(e);
-    container.ontouchstart = (e) => { 
-        e.preventDefault(); 
-        handleInput(e); 
-    };
+    container.ontouchstart = (e) => { e.preventDefault(); handleInput(e); };
 
     draw();
 </script>
