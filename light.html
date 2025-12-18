@@ -8,13 +8,13 @@
         :root { --danger: #ff4757; --gold: #ffd700; --hero: #007bff; }
         * { box-sizing: border-box; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
         body { background: #000; color: white; margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; width: 100vw; overflow: hidden; touch-action: none; }
-        #game-container { position: relative; width: 100%; height: 100%; background: #000; overflow: hidden; }
+        #game-container { position: relative; width: 100%; height: 100%; background: #0a0e14; overflow: hidden; }
         canvas { display: block; width: 100%; height: 100%; }
-        #msg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); pointer-events: none; z-index: 200; }
-        #text-box { width: 85%; text-align: center; font-size: 1.4rem; font-weight: bold; line-height: 1.6; text-shadow: 0 0 20px #000; }
+        #msg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); pointer-events: none; z-index: 200; }
+        #text-box { width: 85%; text-align: center; font-size: 1.4rem; font-weight: bold; line-height: 1.6; text-shadow: 0 0 15px #000; }
         .sub-msg { font-size: 0.9rem; color: var(--gold); margin-top: 20px; animation: blink 1s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-        #v-hp-container { position: absolute; top: env(safe-area-inset-top, 30px); left: 50%; transform: translateX(-50%); width: 70%; height: 15px; border: 1px solid #fff; background: #333; border-radius: 10px; overflow: hidden; display: none; z-index: 100; }
+        #v-hp-container { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); width: 70%; height: 15px; border: 1px solid #fff; background: #333; border-radius: 10px; overflow: hidden; display: none; z-index: 100; }
         #v-hp-fill { height: 100%; background: var(--danger); width: 100%; transition: 0.1s; }
         .damage { position: absolute; color: var(--gold); font-weight: 900; font-size: 2.2rem; animation: hit 0.4s ease-out forwards; pointer-events: none; z-index: 300; text-shadow: 2px 2px 5px #000; }
         @keyframes hit { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: translateY(-60px) scale(1.5); } }
@@ -40,13 +40,14 @@
     const hpFill = document.getElementById('v-hp-fill');
     const container = document.getElementById('game-container');
 
-    // --- [중요] 파일명 확인: ygk.png 또는 yhk.png로 맞춰주세요 ---
-    const HERO_IMG_SRC = 'ygk.png'; 
+    // 이미지 객체 생성 및 로드 체크
+    const imgHero = new Image();
+    imgHero.src = 'ygk.png'; 
 
-    const imgHero = new Image(); imgHero.src = HERO_IMG_SRC;
-    const imgV1 = new Image(); imgV1.src = 'v1.png';
-    const imgV2 = new Image(); imgV2.src = 'v2.png';
-    const imgV3 = new Image(); imgV3.src = 'v3.png';
+    const vImgs = [new Image(), new Image(), new Image()];
+    vImgs[0].src = 'v1.png';
+    vImgs[1].src = 'v2.png';
+    vImgs[2].src = 'v3.png';
 
     let state = 'INTRO', step = 0, stage = 0, hp = 100, shake = 0;
     let canvasW, canvasH;
@@ -58,41 +59,49 @@
         "전투 개시! 빌런을 연타하여 정화하세요!"
     ];
 
-    const villains = [
-        { name: "격차의 마녀", img: imgV1, policy: "경남형 기회균등 완성!" },
-        { name: "획일화 거인", img: imgV2, policy: "맞춤형 개성 교육!" },
-        { name: "관성 대마왕", img: imgV3, policy: "경남교육 혁신 성공!" }
-    ];
+    const policies = ["경남형 기회균등 완성!", "맞춤형 개성 교육!", "경남교육 혁신 성공!"];
 
     function resize() {
-        canvasW = window.innerWidth; canvasH = window.innerHeight;
-        canvas.width = canvasW; canvas.height = canvasH;
+        canvasW = window.innerWidth;
+        canvasH = window.innerHeight;
+        canvas.width = canvasW;
+        canvas.height = canvasH;
     }
     window.addEventListener('resize', resize);
     resize();
 
     function draw() {
         ctx.clearRect(0, 0, canvasW, canvasH);
+        
         let sx = (Math.random() - 0.5) * shake;
         let sy = (Math.random() - 0.5) * shake;
         if (shake > 0) shake *= 0.8;
 
         if (state === 'PLAY') {
-            const vw = canvasW * 0.45; const vh = vw * 1.3;
-            const hw = canvasW * 0.45; const hh = hw * 1.5;
-            
-            // 왼쪽: 빌런 (이미지 로드 완료 확인 후 그리기)
-            if(villains[stage].img.complete) {
-                ctx.drawImage(villains[stage].img, (canvasW * 0.05) + sx, (canvasH * 0.35) + sy, vw, vh);
+            // 캐릭터 크기를 화면 너비의 40% 정도로 가변 조절
+            const charW = canvasW * 0.4;
+            const charH = charW * 1.4;
+
+            // 왼쪽: 빌런 (v1, v2, v3)
+            if (vImgs[stage].complete && vImgs[stage].naturalWidth !== 0) {
+                ctx.drawImage(vImgs[stage], (canvasW * 0.05) + sx, (canvasH * 0.4) + sy, charW, charH);
             } else {
-                ctx.fillStyle = "red"; ctx.fillRect((canvasW * 0.05) + sx, (canvasH * 0.35) + sy, vw, vh);
+                // 이미지 안 나올 때 대비용 박스 (디버깅용)
+                ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
+                ctx.fillRect((canvasW * 0.05) + sx, (canvasH * 0.4) + sy, charW, charH);
+                ctx.fillStyle = "white";
+                ctx.fillText("빌런 이미지 로드 중...", (canvasW * 0.05), (canvasH * 0.4));
             }
 
-            // 오른쪽: 김영곤 후보님 (이미지 로드 완료 확인 후 그리기)
-            if(imgHero.complete) {
-                ctx.drawImage(imgHero, (canvasW * 0.5) + sx, (canvasH * 0.45) + sy, hw, hh);
+            // 오른쪽: 김영곤 후보님 (ygk.png)
+            if (imgHero.complete && imgHero.naturalWidth !== 0) {
+                ctx.drawImage(imgHero, (canvasW * 0.55) + sx, (canvasH * 0.45) + sy, charW, charH);
             } else {
-                ctx.fillStyle = "blue"; ctx.fillRect((canvasW * 0.5) + sx, (canvasH * 0.45) + sy, hw, hh);
+                // 이미지 안 나올 때 대비용 박스 (디버깅용)
+                ctx.fillStyle = "rgba(0, 123, 255, 0.5)";
+                ctx.fillRect((canvasW * 0.55) + sx, (canvasH * 0.45) + sy, charW, charH);
+                ctx.fillStyle = "white";
+                ctx.fillText("YG 후보 이미지 로드 중...", (canvasW * 0.55), (canvasH * 0.45));
             }
         }
         requestAnimationFrame(draw);
@@ -115,31 +124,39 @@
     }
 
     function attack(e) {
-        hp -= 10; shake = 15;
+        hp -= 10;
+        shake = 15;
         hpFill.style.width = hp + "%";
+
         const dam = document.createElement('div');
-        dam.className = 'damage'; dam.innerText = "경남교육!";
-        let cx = e.touches ? e.touches[0].clientX : e.clientX;
-        let cy = e.touches ? e.touches[0].clientY : e.clientY;
-        const r = container.getBoundingClientRect();
-        dam.style.left = (cx - r.left - 40) + 'px';
-        dam.style.top = (cy - r.top - 40) + 'px';
+        dam.className = 'damage';
+        dam.innerText = "경남교육!";
+        
+        const touch = e.touches ? e.touches[0] : e;
+        const rect = container.getBoundingClientRect();
+        dam.style.left = (touch.clientX - rect.left - 40) + 'px';
+        dam.style.top = (touch.clientY - rect.top - 40) + 'px';
+        
         container.appendChild(dam);
         setTimeout(() => dam.remove(), 400);
 
         if (hp <= 0) {
-            alert(`정화 성공: ${villains[stage].policy}`);
+            alert(`정화 성공: ${policies[stage]}`);
             stage++;
             if (stage >= 3) {
                 state = 'ENDING';
                 textEl.innerHTML = "<span style='color:var(--gold);'>경남교육 승리!<br>김영곤이 해냈습니다!</span>";
                 hpContainer.style.display = "none";
-            } else { hp = 100; hpFill.style.width = "100%"; }
+            } else {
+                hp = 100;
+                hpFill.style.width = "100%";
+            }
         }
     }
 
-    container.onmousedown = (e) => handleInput(e);
-    container.ontouchstart = (e) => { e.preventDefault(); handleInput(e); };
+    // 터치/클릭 이벤트 바인딩
+    container.addEventListener('touchstart', (e) => { e.preventDefault(); handleInput(e); }, { passive: false });
+    container.addEventListener('mousedown', (e) => handleInput(e));
 
     draw();
 </script>
