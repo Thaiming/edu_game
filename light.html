@@ -67,4 +67,54 @@
         if (state === 'PLAY') {
             // 후보님 그리기 (ygk.png)
             const hx = 100 + sx, hy = 200 + sy;
-            ctx.drawImage
+            ctx.drawImage(imgHero, hx, hy, 120, 180); 
+            tagHero.style.left = (hx + 10) + 'px';
+            tagHero.style.top = (hy - 40) + 'px';
+
+            // 빌런 그리기
+            const vx = 500 + sx, vy = 150 + sy;
+            ctx.drawImage(villains[stage].img, vx, vy, 180, 230);
+            tagVillain.innerText = villains[stage].name;
+            tagVillain.style.left = (vx + 20) + 'px';
+            tagVillain.style.top = (vy - 40) + 'px';
+        }
+        requestAnimationFrame(draw);
+    }
+
+    function attack(e) {
+        if (state === 'INTRO') { state = 'PLAY'; msgEl.innerText = ""; return; }
+        if (state !== 'PLAY') return;
+
+        hp -= 8;
+        shake = 15;
+        hpFill.style.width = Math.max(0, hp) + "%";
+
+        const dam = document.createElement('div');
+        dam.className = 'damage'; dam.innerText = "참교육!";
+        const clickX = e.clientX || (e.touches ? e.touches[0].clientX : 400);
+        const clickY = e.clientY || (e.touches ? e.touches[0].clientY : 200);
+        dam.style.left = (clickX - 40) + 'px'; dam.style.top = (clickY - 40) + 'px';
+        container.appendChild(dam);
+        setTimeout(() => dam.remove(), 400);
+
+        if (hp <= 0) {
+            alert(`[${villains[stage].policy}] 정책 실행!`);
+            stage++;
+            if (stage >= 3) {
+                state = 'ENDING';
+                tagHero.style.display = tagVillain.style.display = "none";
+                msgEl.innerHTML = "<span style='color:var(--gold); font-size:1.8rem;'>교육 히어로 김영곤,<br>대한민국의 미래를 열었습니다!</span>";
+                hpFill.parentElement.style.display = "none";
+            } else {
+                hp = 100; hpFill.style.width = "100%";
+            }
+        }
+    }
+
+    container.addEventListener('touchstart', (e) => { e.preventDefault(); attack(e); });
+    container.addEventListener('mousedown', (e) => attack(e));
+
+    draw();
+</script>
+</body>
+</html>
