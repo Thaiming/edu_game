@@ -3,65 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kim-young-gon.vercel.app/game.html">
+    <meta property="og:title" content="🎁 당신에게 도착한 경남 교육 행운권!">
+    <meta property="og:description" content="클릭해서 우리 아이의 미래 본캐와 행운 공약을 확인하세요!">
+    <meta property="og:image" content="https://kim-young-gon.vercel.app/thumb.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
     <title>2026 경남 교육 럭키박스</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
             display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; margin: 0;
-            background: #e0f2f7; /* 하늘색 배경 */
+            min-height: 100vh; margin: 0; background: #e0f2f7;
         }
         .container {
             background: #fff; border-radius: 20px; padding: 30px;
-            width: 90%; max-width: 500px; text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border: 4px solid #007bff;
+            width: 90%; max-width: 450px; text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 4px solid #007bff;
         }
         .kim-img {
-            width: 120px; height: 120px; border-radius: 50%;
-            border: 4px solid #007bff; margin-bottom: 15px;
-            object-fit: cover; /* 이미지가 찌그러지지 않게 설정 */
-            background: #fff;
+            width: 100px; height: 100px; border-radius: 50%;
+            border: 3px solid #007bff; margin-bottom: 10px; object-fit: cover;
         }
-        h1 { font-size: 1.6em; color: #333; margin: 10px 0; }
+        /* 게임 속 선물 상자 이미지 설정 */
         .lucky-box {
-            width: 140px; height: 140px; background: linear-gradient(145deg, #ffc107, #ff9800);
-            border-radius: 20px; margin: 30px auto;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 4em; cursor: pointer;
-            box-shadow: 0 8px 15px rgba(255,152,0,0.3);
-            animation: bounce 2s infinite ease-in-out;
+            width: 180px; height: 180px; margin: 20px auto;
+            background-image: url('thumb.png'); /* 게임 안에서도 선물박스 이미지 사용 */
+            background-size: contain; background-repeat: no-repeat; background-position: center;
+            cursor: pointer; animation: bounce 2s infinite ease-in-out;
         }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         .result-area {
             display: none; background: #f8fdff; border-radius: 15px;
-            padding: 25px; margin-top: 20px; border: 2px dashed #007bff;
-            text-align: center;
+            padding: 20px; margin-top: 20px; border: 2px dashed #007bff;
         }
         .btn {
             background: #007bff; color: white; border: none;
             padding: 12px 25px; border-radius: 8px; cursor: pointer;
-            margin-top: 20px; font-weight: bold; font-size: 1em;
+            margin-top: 15px; font-weight: bold;
         }
-        .btn:hover { background: #0056b3; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="https://i.namu.wiki/i/LRkAzYUguwmvoGirz9HOxQrkfYeCdQ6xm3QMo5D2gwB31NQxTVJ5Nik7Bb1QxIgj6Bo5JtSxvqlJPEPyVoryyo7vTeXQXx9pX7KG03RjyU7ScfUaDrL-h2MAtc-2KayeYJ23euODNenZm2IRKISHaw.webp" 
-             alt="김영곤 후보" class="kim-img">
+        <img src="https://i.namu.wiki/i/LRkAzYUguwmvoGirz9HOxQrkfYeCdQ6xm3QMo5D2gwB31NQxTVJ5Nik7Bb1QxIgj6Bo5JtSxvqlJPEPyVoryyo7vTeXQXx9pX7KG03RjyU7ScfUaDrL-h2MAtc-2KayeYJ23euODNenZm2IRKISHaw.webp" alt="김영곤 후보" class="kim-img">
         
-        <h1>2026 경남 교육 럭키박스</h1>
-        <p>박스를 클릭해 우리 아이의 <br><strong>행운 공약</strong>을 확인하세요!</p>
+        <h1>경남 교육 럭키박스</h1>
+        <p>상자를 터치해 행운을 뽑으세요!</p>
 
-        <div class="lucky-box" id="luckyBox">🎁</div>
+        <div class="lucky-box" id="luckyBox"></div>
 
         <div class="result-area" id="resultArea">
-            <h2 id="resTitle" style="color:#007bff; margin-bottom:10px;"></h2>
-            <p id="resMsg" style="font-size: 1.2em; font-weight: bold; margin-bottom:15px; color:#333;"></p>
-            <p id="resPolicy" style="color:#666; font-size: 0.95em; line-height:1.5; background:#fff; padding:10px; border-radius:8px;"></p>
+            <h2 id="resTitle" style="color:#007bff;"></h2>
+            <p id="resMsg" style="font-size: 1.2em; font-weight: bold;"></p>
+            <p id="resPolicy" style="color:#666; font-size: 0.9em; background:#fff; padding:10px; border-radius:8px;"></p>
             <button class="btn" onclick="location.reload()">다시 뽑기</button>
         </div>
     </div>
@@ -70,11 +70,10 @@
         const luckyBox = document.getElementById('luckyBox');
         const resultArea = document.getElementById('resultArea');
         const outcomes = [
-            { title: "🍀 AI 영재운", msg: "아이의 잠재력이 폭발할 운세!", policy: "김영곤은 [AI 영재교육원 신설]로 경남의 아이들을 글로벌 인재로 키우겠습니다." },
-            { title: "📈 학력 점프운", msg: "성적이 쑥쑥 올라가는 기분 좋은 예감!", policy: "김영곤은 [기초학력 보장 및 학력 격차 해소]로 단 한 명의 아이도 포기하지 않습니다." },
-            { title: "🚀 취업 탄탄운", msg: "지역 대기업 입사 각! 미래가 든든해집니다.", policy: "김영곤은 [지역 사업체 연계형 AI 인재 양성]으로 경남 청년의 일자리를 책임집니다." },
-            { title: "💖 책임 교육운", msg: "학부모님 걱정 끝! 학교가 울타리가 됩니다.", policy: "김영곤은 [공교육 책임제]를 통해 교육 격차 없는 경남을 만들겠습니다." },
-            { title: "🏫 명문 학교운", msg: "우리 동네에 특별한 학교가 생길 운세!", policy: "김영곤은 [자율형 사립고·영재고 등 다양한 교육 모델]을 과감히 도입하겠습니다." }
+            { title: "🍀 AI 영재운", msg: "미래의 테크 리더 탄생!", policy: "김영곤은 [AI 영재교육원 신설]로 경남의 아이들을 글로벌 인재로 키우겠습니다." },
+            { title: "📈 성적 상승운", msg: "공부가 술술 풀리는 마법!", policy: "김영곤은 [기초학력 보장]으로 단 한 명의 아이도 포기하지 않는 책임 교육을 실현합니다." },
+            { title: "🚀 취업 탄탄운", msg: "지역 대기업 입사 행운!", policy: "김영곤은 [사업체 연계형 인재 양성]으로 경남 청년의 일자리를 책임지겠습니다." },
+            { title: "🏫 미래 학교운", msg: "우리 동네 명문교 탄생!", policy: "김영곤은 [자율형 사립고·영재고 등 다양한 교육 모델]을 과감히 도입하겠습니다." }
         ];
 
         luckyBox.onclick = function() {
@@ -87,6 +86,5 @@
             resultArea.style.display = 'block';
         };
     </script>
-
 </body>
 </html>
