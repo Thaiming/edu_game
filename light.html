@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="경남교육 히어로: 김영곤">
+    <meta property="og:description" content="김영곤과 함께 낡은 관성을 깨부수고 경남교육의 미래를 구하세요!">
+    <meta property="og:image" content="ygk.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="ygk.png">
+
     <title>경남교육 히어로: 김영곤</title>
     <style>
         :root { --danger: #ff4757; --gold: #ffd700; --hero: #007bff; }
@@ -78,30 +86,23 @@
         if (shake > 0) shake *= 0.8;
 
         if (state === 'PLAY') {
-            // 캐릭터 크기를 화면 너비의 40% 정도로 가변 조절
-            const charW = canvasW * 0.4;
+            const charW = canvasW * 0.45;
             const charH = charW * 1.4;
 
-            // 왼쪽: 빌런 (v1, v2, v3)
+            // 왼쪽: 빌런
             if (vImgs[stage].complete && vImgs[stage].naturalWidth !== 0) {
-                ctx.drawImage(vImgs[stage], (canvasW * 0.05) + sx, (canvasH * 0.4) + sy, charW, charH);
+                ctx.drawImage(vImgs[stage], (canvasW * 0.05) + sx, (canvasH * 0.35) + sy, charW, charH);
             } else {
-                // 이미지 안 나올 때 대비용 박스 (디버깅용)
                 ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
-                ctx.fillRect((canvasW * 0.05) + sx, (canvasH * 0.4) + sy, charW, charH);
-                ctx.fillStyle = "white";
-                ctx.fillText("빌런 이미지 로드 중...", (canvasW * 0.05), (canvasH * 0.4));
+                ctx.fillRect((canvasW * 0.05) + sx, (canvasH * 0.35) + sy, charW, charH);
             }
 
-            // 오른쪽: 김영곤 후보님 (ygk.png)
+            // 오른쪽: 김영곤 후보님
             if (imgHero.complete && imgHero.naturalWidth !== 0) {
-                ctx.drawImage(imgHero, (canvasW * 0.55) + sx, (canvasH * 0.45) + sy, charW, charH);
+                ctx.drawImage(imgHero, (canvasW * 0.5) + sx, (canvasH * 0.45) + sy, charW, charH * 1.1);
             } else {
-                // 이미지 안 나올 때 대비용 박스 (디버깅용)
                 ctx.fillStyle = "rgba(0, 123, 255, 0.5)";
-                ctx.fillRect((canvasW * 0.55) + sx, (canvasH * 0.45) + sy, charW, charH);
-                ctx.fillStyle = "white";
-                ctx.fillText("YG 후보 이미지 로드 중...", (canvasW * 0.55), (canvasH * 0.45));
+                ctx.fillRect((canvasW * 0.5) + sx, (canvasH * 0.45) + sy, charW, charH * 1.1);
             }
         }
         requestAnimationFrame(draw);
@@ -154,7 +155,6 @@
         }
     }
 
-    // 터치/클릭 이벤트 바인딩
     container.addEventListener('touchstart', (e) => { e.preventDefault(); handleInput(e); }, { passive: false });
     container.addEventListener('mousedown', (e) => handleInput(e));
 
