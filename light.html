@@ -4,73 +4,166 @@
     <meta charset="UTF-8">
     <title>교육 히어로: 잃어버린 미래를 찾아서</title>
     <style>
-        :root { --main-blue: #0056b3; --gold: #ffd700; --danger: #ff4757; }
-        body { background: #0f172a; color: white; margin: 0; font-family: 'Pretendard', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; }
+        :root { --main-blue: #007bff; --gold: #ffd700; --danger: #ff4757; }
+        body { background: #0a0e14; color: white; margin: 0; font-family: 'Pretendard', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
         
-        /* 게임 화면 테두리 및 그림자 */
         #game-container { 
             position: relative; width: 800px; height: 450px; 
-            border: 6px solid var(--gold); border-radius: 20px;
-            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-            box-shadow: 0 0 50px rgba(0,0,0,0.5), 0 0 20px rgba(255, 215, 0, 0.2);
-            overflow: hidden;
+            border: 4px solid var(--gold); border-radius: 15px;
+            background: #111; overflow: hidden; cursor: pointer;
         }
 
-        /* UI 레이아웃 개선 */
         #top-ui { 
             position: absolute; top: 20px; left: 0; width: 100%; 
-            display: flex; justify-content: space-around; align-items: flex-start;
+            display: flex; justify-content: space-around; pointer-events: none;
         }
-        .hp-container { width: 250px; background: rgba(0,0,0,0.5); padding: 5px; border-radius: 10px; border: 1px solid #444; }
-        .hp-bar { height: 15px; background: var(--danger); width: 100%; border-radius: 5px; transition: 0.3s; }
-        
+        .hp-container { width: 220px; background: rgba(255,255,255,0.1); padding: 8px; border-radius: 8px; }
+        .hp-bar { height: 12px; background: #2ed573; width: 100%; transition: 0.2s; border-radius: 4px; }
+        .v-hp { background: var(--danger); width: 100%; }
+
         #msg-center { 
-            position: absolute; bottom: 100px; width: 100%; text-align: center;
-            font-size: 1.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,1);
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 80%; text-align: center; font-size: 1.4rem; font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8); pointer-events: none; line-height: 1.6;
         }
 
-        /* 정책 카드 슬롯 스타일 */
         #policy-cards {
             position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-            display: flex; gap: 10px;
+            display: flex; gap: 15px; pointer-events: none;
         }
         .card { 
-            width: 120px; height: 60px; background: rgba(255,215,0,0.1); 
-            border: 2px solid var(--gold); border-radius: 5px; 
+            width: 130px; height: 50px; background: rgba(0,0,0,0.5); 
+            border: 2px solid #555; border-radius: 10px; 
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.8rem; text-align: center; font-weight: bold; opacity: 0.3;
+            font-size: 0.8rem; text-align: center; color: #777;
         }
-        .card.active { opacity: 1; background: var(--gold); color: black; box-shadow: 0 0 15px var(--gold); }
+        .card.active { border-color: var(--gold); color: var(--gold); background: rgba(255,215,0,0.1); box-shadow: 0 0 10px var(--gold); }
     </style>
 </head>
 <body>
 
-<div id="game-container">
+<div id="game-container" id="gameBox">
     <canvas id="gameCanvas" width="800" height="450"></canvas>
     
     <div id="top-ui">
         <div class="hp-container">
-            <div style="font-size: 0.7rem; margin-bottom: 3px;">HERO 김영곤</div>
-            <div class="hp-bar" style="background: #2ed573;"></div>
+            <div style="font-size: 0.8rem; margin-bottom: 5px;">HERO 김영곤</div>
+            <div id="hero-hp" class="hp-bar"></div>
         </div>
-        <div class="hp-container">
-            <div id="villain-name" style="font-size: 0.7rem; margin-bottom: 3px; text-align: right;">대기 중...</div>
-            <div id="villain-hp" class="hp-bar"></div>
+        <div class="hp-container" id="villain-ui" style="display:none;">
+            <div id="v-name" style="font-size: 0.8rem; margin-bottom: 5px; text-align: right; color: var(--danger);">빌런</div>
+            <div id="v-hp-bar" class="hp-bar v-hp"></div>
         </div>
     </div>
 
-    <div id="msg-center">화면을 클릭하여 시작하세요</div>
+    <div id="msg-center">대한민국의 미래를 위해<br>화면을 클릭하세요</div>
 
     <div id="policy-cards">
-        <div id="card1" class="card">기회균등<br>어퍼컷</div>
-        <div id="card2" class="card">개성해방<br>소닉붐</div>
-        <div id="card3" class="card">미래교육<br>그랜드슬램</div>
+        <div id="card0" class="card">기회균등 어퍼컷</div>
+        <div id="card1" class="card">개성해방 소닉붐</div>
+        <div id="card2" class="card">미래교육 그랜드슬램</div>
     </div>
 </div>
 
 <script>
-    // 기존 로직을 유지하되 비주얼 업데이트 (애니메이션 효과 추가 가능)
-    // (이전 코드의 핵심 로직을 그대로 넣되, UI 요소를 조작하는 코드로 연결)
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const msgEl = document.getElementById('msg-center');
+    const vUI = document.getElementById('villain-ui');
+    const vNameEl = document.getElementById('v-name');
+    const vHPBar = document.getElementById('v-hp-bar');
+
+    let state = 'INTRO';
+    let introIdx = 0;
+    let stageIdx = 0;
+    let bossHP = 100;
+    let shake = 0;
+
+    const story = [
+        "교육의 성지 '희망의 시계탑'이 멈췄습니다.",
+        "차별과 관성의 빌런들이 미래를 훔쳐갔습니다.",
+        "김영곤: \"아이들을 막는 모든 벽을 허물겠습니다!\"",
+        "전투 개시! [A]키를 눌러 빌런을 물리치세요!"
+    ];
+
+    const stages = [
+        { name: "격차의 마녀 '디바이드'", boss: "돈이 곧 실력이다!", color: "#e74c3c" },
+        { name: "획일화의 거인 '모노'", boss: "모두 똑같이 살아라!", color: "#95a5a6" },
+        { name: "관성의 대마왕 '올드원'", boss: "변화는 불가능하다!", color: "#2c3e50" }
+    ];
+
+    function update() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // 흔들림 효과
+        let ox = (Math.random()-0.5) * shake;
+        let oy = (Math.random()-0.5) * shake;
+        if(shake > 0) shake *= 0.8;
+
+        if (state === 'PLAY') {
+            // 후보님 (Blue Hero)
+            ctx.fillStyle = "#007bff";
+            ctx.fillRect(150 + ox, 250 + oy, 60, 100);
+            ctx.fillStyle = "white";
+            ctx.font = "bold 16px sans-serif";
+            ctx.fillText("김영곤", 155, 240);
+
+            // 빌런
+            ctx.fillStyle = stages[stageIdx].color;
+            ctx.fillRect(550 + ox, 200 + oy, 120, 160);
+        }
+
+        requestAnimationFrame(update);
+    }
+
+    document.getElementById('game-container').addEventListener('mousedown', () => {
+        if (state === 'INTRO') {
+            introIdx++;
+            if (introIdx < story.length) {
+                msgEl.innerHTML = story[introIdx];
+            } else {
+                state = 'PLAY';
+                msgEl.innerHTML = "";
+                vUI.style.display = "block";
+                startStage();
+            }
+        }
+    });
+
+    window.addEventListener('keydown', (e) => {
+        if (state === 'PLAY' && e.key.toLowerCase() === 'a') {
+            attack();
+        }
+    });
+
+    function startStage() {
+        bossHP = 100;
+        vNameEl.innerText = stages[stageIdx].name;
+        vHPBar.style.width = "100%";
+        document.getElementById(`card${stageIdx}`).classList.add('active');
+        msgEl.innerHTML = `<span style='color:var(--danger)'>${stages[stageIdx].boss}</span>`;
+        setTimeout(() => { if(state === 'PLAY') msgEl.innerHTML = ""; }, 1500);
+    }
+
+    function attack() {
+        bossHP -= 10;
+        shake = 10;
+        vHPBar.style.width = bossHP + "%";
+
+        if (bossHP <= 0) {
+            if (stageIdx < 2) {
+                alert(`성공! ${stages[stageIdx].name}를 정화했습니다!`);
+                stageIdx++;
+                startStage();
+            } else {
+                state = 'ENDING';
+                vUI.style.display = "none";
+                msgEl.innerHTML = "<span style='color:var(--gold); font-size:2rem;'>MISSION COMPLETE!</span><br><br>시계탑이 다시 돌아가기 시작합니다.<br>아이들의 밝은 미래, 김영곤이 만들겠습니다!";
+            }
+        }
+    }
+
+    update();
 </script>
 </body>
 </html>
