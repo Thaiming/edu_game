@@ -6,56 +6,50 @@
     <title>교육 히어로: 김영곤</title>
     <style>
         :root { --danger: #ff4757; --gold: #ffd700; --hero: #007bff; }
-        body { background: #000; color: white; margin: 0; font-family: 'Pretendard', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; touch-action: manipulation; }
+        body { background: #000; color: white; margin: 0; font-family: 'Pretendard', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; touch-action: none; }
         
-        #game-container { position: relative; width: 100%; max-width: 800px; height: 450px; background: url('bg_office.png') center/cover #111; overflow: hidden; border: 4px solid var(--gold); border-radius: 15px; }
-
-        .name-tag { position: absolute; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 0.9rem; z-index: 50; border: 1px solid #fff; }
-        .hero-tag { background: var(--hero); }
-        .villain-tag { background: var(--danger); }
+        #game-container { position: relative; width: 100%; max-width: 800px; height: 450px; background: #111; overflow: hidden; border: 3px solid var(--gold); border-radius: 15px; }
 
         /* 데미지 텍스트 */
-        .damage { position: absolute; color: var(--gold); font-weight: bold; font-size: 2rem; animation: hitAnime 0.4s ease-out forwards; pointer-events: none; z-index: 100; text-shadow: 2px 2px 4px #000; }
+        .damage { position: absolute; color: var(--gold); font-weight: bold; font-size: 2rem; animation: hitAnime 0.4s ease-out forwards; pointer-events: none; z-index: 100; }
         @keyframes hitAnime { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: translateY(-50px) scale(1.5); } }
 
-        #v-hp-container { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); width: 60%; height: 20px; border: 2px solid #fff; background: #333; border-radius: 10px; overflow: hidden; }
-        #v-hp-fill { height: 100%; background: linear-gradient(90deg, #ff4757, #ff6b81); width: 100%; transition: 0.1s; }
-        #msg-center { position: absolute; top: 150px; width: 100%; text-align: center; font-size: 1.5rem; font-weight: bold; text-shadow: 2px 2px 10px #000; pointer-events: none; }
+        #msg-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; text-align: center; font-size: 1.4rem; font-weight: bold; text-shadow: 2px 2px 10px #000; pointer-events: none; z-index: 200; }
+
+        #v-hp-container { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); width: 60%; height: 15px; border: 1px solid #fff; background: #333; display: none; }
+        #v-hp-fill { height: 100%; background: var(--danger); width: 100%; transition: 0.1s; }
+        
+        .name-tag { position: absolute; padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; display: none; border: 1px solid #fff; }
     </style>
 </head>
 <body>
 
-<div id="game-container" id="gameBox">
+<div id="game-container">
     <canvas id="gameCanvas" width="800" height="450"></canvas>
-    
-    <div id="tag-hero" class="name-tag hero-tag">김영곤 후보</div>
-    <div id="tag-villain" class="name-tag villain-tag">빌런</div>
-
+    <div id="msg-center">대한민국의 미래를 위해<br>화면을 터치하세요</div>
     <div id="v-hp-container"><div id="v-hp-fill"></div></div>
-    <div id="msg-center">화면을 클릭하여<br>참교육을 시작하세요!</div>
+    <div id="tag-hero" class="name-tag" style="background:var(--hero)">김영곤 후보</div>
+    <div id="tag-villain" class="name-tag" style="background:var(--danger)">빌런</div>
 </div>
 
 <script>
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     const msgEl = document.getElementById('msg-center');
+    const hpContainer = document.getElementById('v-hp-container');
     const hpFill = document.getElementById('v-hp-fill');
     const container = document.getElementById('game-container');
-    const tagHero = document.getElementById('tag-hero');
-    const tagVillain = document.getElementById('tag-villain');
 
-    // 이미지 객체 생성
-    const imgHero = new Image(); imgHero.src = 'ygk.png'; 
-    const imgV1 = new Image(); imgV1.src = 'v1.png'; // 격차의 마녀
-    const imgV2 = new Image(); imgV2.src = 'v2.png'; // 획일화 거인
-    const imgV3 = new Image(); imgV3.src = 'v3.png'; // 관성 대마왕
+    const imgHero = new Image(); imgHero.src = 'ygk.png';
+    const imgV1 = new Image(); imgV1.src = 'v1.png';
+    const imgV2 = new Image(); imgV2.src = 'v2.png';
+    const imgV3 = new Image(); imgV3.src = 'v3.png';
 
     let state = 'INTRO', stage = 0, hp = 100, shake = 0;
-
     const villains = [
-        { name: "격차의 마녀 '디바이드'", img: imgV1, policy: "기회균등 실현!" },
-        { name: "획일화 거인 '모노'", img: imgV2, policy: "개성 존중 교육!" },
-        { name: "관성 대마왕 '올드원'", img: imgV3, policy: "미래 교육 완성!" }
+        { name: "격차의 마녀", img: imgV1, policy: "기회균등 실현!" },
+        { name: "획일화 거인", img: imgV2, policy: "개성 존중 교육!" },
+        { name: "관성 대마왕", img: imgV3, policy: "미래 교육 완성!" }
     ];
 
     function draw() {
@@ -65,54 +59,75 @@
         if (shake > 0) shake *= 0.8;
 
         if (state === 'PLAY') {
-            // 후보님 그리기 (ygk.png)
-            const hx = 100 + sx, hy = 200 + sy;
-            ctx.drawImage(imgHero, hx, hy, 120, 180); 
-            tagHero.style.left = (hx + 10) + 'px';
-            tagHero.style.top = (hy - 40) + 'px';
-
-            // 빌런 그리기
-            const vx = 500 + sx, vy = 150 + sy;
-            ctx.drawImage(villains[stage].img, vx, vy, 180, 230);
-            tagVillain.innerText = villains[stage].name;
-            tagVillain.style.left = (vx + 20) + 'px';
-            tagVillain.style.top = (vy - 40) + 'px';
+            ctx.drawImage(imgHero, 100 + sx, 200 + sy, 120, 180);
+            ctx.drawImage(villains[stage].img, 500 + sx, 150 + sy, 180, 230);
         }
         requestAnimationFrame(draw);
     }
 
+    // 터치/클릭 통합 핸들러
+    function handleInteraction(e) {
+        if (state === 'INTRO') {
+            state = 'PLAY';
+            msgEl.innerText = "";
+            hpContainer.style.display = "block";
+            document.querySelectorAll('.name-tag').forEach(t => t.style.display = 'block');
+            return;
+        }
+
+        if (state === 'PLAY') {
+            attack(e);
+        }
+    }
+
     function attack(e) {
-        if (state === 'INTRO') { state = 'PLAY'; msgEl.innerText = ""; return; }
-        if (state !== 'PLAY') return;
+        hp -= 10;
+        shake = 10;
+        hpFill.style.width = hp + "%";
 
-        hp -= 8;
-        shake = 15;
-        hpFill.style.width = Math.max(0, hp) + "%";
-
+        // 데미지 효과
         const dam = document.createElement('div');
         dam.className = 'damage'; dam.innerText = "참교육!";
-        const clickX = e.clientX || (e.touches ? e.touches[0].clientX : 400);
-        const clickY = e.clientY || (e.touches ? e.touches[0].clientY : 200);
-        dam.style.left = (clickX - 40) + 'px'; dam.style.top = (clickY - 40) + 'px';
+        
+        // 터치/클릭 좌표 구하기
+        let clientX, clientY;
+        if (e.touches && e.touches.length > 0) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+        
+        const rect = container.getBoundingClientRect();
+        dam.style.left = (clientX - rect.left - 30) + 'px';
+        dam.style.top = (clientY - rect.top - 30) + 'px';
         container.appendChild(dam);
         setTimeout(() => dam.remove(), 400);
 
         if (hp <= 0) {
-            alert(`[${villains[stage].policy}] 정책 실행!`);
+            alert(`[${villains[stage].policy}] 정책 성공!`);
             stage++;
             if (stage >= 3) {
                 state = 'ENDING';
-                tagHero.style.display = tagVillain.style.display = "none";
-                msgEl.innerHTML = "<span style='color:var(--gold); font-size:1.8rem;'>교육 히어로 김영곤,<br>대한민국의 미래를 열었습니다!</span>";
-                hpFill.parentElement.style.display = "none";
+                msgEl.innerHTML = "<span style='color:var(--gold)'>교육 히어로 김영곤!<br>미래를 되찾았습니다.</span>";
+                hpContainer.style.display = "none";
             } else {
                 hp = 100; hpFill.style.width = "100%";
             }
         }
     }
 
-    container.addEventListener('touchstart', (e) => { e.preventDefault(); attack(e); });
-    container.addEventListener('mousedown', (e) => attack(e));
+    // 모바일 전용 이벤트
+    container.addEventListener('touchstart', (e) => {
+        e.preventDefault(); 
+        handleInteraction(e);
+    }, { passive: false });
+
+    // PC 전용 이벤트
+    container.addEventListener('mousedown', (e) => {
+        handleInteraction(e);
+    });
 
     draw();
 </script>
