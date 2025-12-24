@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 영곤 행운 부적 상점</title>
+    <style>
+        body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; text-align: center; background-color: #fff9fa; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 450px; margin: 40px auto; background: white; padding: 30px; border-radius: 25px; box-shadow: 0 15px 35px rgba(255, 71, 126, 0.1); }
+        h1 { font-size: 1.4rem; margin-bottom: 25px; word-break: keep-all; }
+        #amulet-display { width: 100%; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
+        #amulet-image { max-width: 100%; border-radius: 15px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.1); animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .placeholder-box { width: 100%; height: 500px; background: #fefefe; border: 2px dashed #ffc0cb; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
+        .btn { background: #ff477e; color: white; border: none; padding: 16px 32px; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 10px; }
+        .result-section { display: none; margin-top: 20px; animation: fadeIn 1s; }
+        .guide-text { background: #fff0f3; padding: 15px; border-radius: 12px; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; color: #444; }
+        .guide-text strong { color: #ff477e; }
+        .restart-text { font-size: 0.85rem; color: #aaa; margin-top: 20px; cursor: pointer; text-decoration: underline; }
+        @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔮 2026 영곤 행운 부적 상점</h1>
+    
+    <div id="amulet-display">
+        <div class="placeholder-box" id="placeholder" onclick="pickAmulet()">
+            <span style="font-size: 3rem; margin-bottom: 10px;">🎁</span>
+            <p>화면을 터치해서<br><strong>2026년 부적</strong>을 뽑아보세요!</p>
+        </div>
+        <img id="amulet-image" src="" alt="영곤 행운 부적">
+    </div>
+
+    <div class="result-section" id="result-section">
+        <div class="guide-text">
+            📷 <strong>부적을 앨범에 저장하는 순간,</strong><br>
+            2026년의 행운이 당신의 마음속에 쏙 들어옵니다.<br><br>
+            🚀 <strong>공유하면 행운의 기운이 2배로 커져요!</strong>
+        </div>
+        <button class="btn" onclick="shareLink()">✨ 행운 나눠주기 (공유)</button>
+        <p class="restart-text" onclick="location.reload()">다른 부적도 뽑아볼까요?</p>
+    </div>
+</div>
+
+<script>
+    // 이미지 파일명이 luck1.jpg, luck2.jpg, luck3.jpg인지 다시 확인해주세요!
+    const amulets = ['luck1.jpg', 'luck2.jpg', 'luck3.jpg'];
+
+    function pickAmulet() {
+        const randomIndex = Math.floor(Math.random() * amulets.length);
+        const imgElement = document.getElementById('amulet-image');
+        const placeholder = document.getElementById('placeholder');
+        const resultSection = document.getElementById('result-section');
+
+        imgElement.src = amulets[randomIndex];
+        placeholder.style.display = 'none';
+        imgElement.style.display = 'block';
+        resultSection.style.display = 'block';
+    }
+
+    async function shareLink() {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: '2026 영곤 행운 부적',
+                    text: '당신을 위한 2026년 대박 부적이 도착했어요! 같이 확인해봐요.',
+                    url: window.location.href,
+                });
+            } catch (err) { console.log('공유 실패'); }
+        } else {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('링크가 복사되었습니다! 친구에게 행운을 전달하세요.');
+            });
+        }
+    }
+</script>
+
+</body>
+</html>
