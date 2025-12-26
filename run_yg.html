@@ -7,41 +7,43 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="슈퍼 영곤 러너">
     <meta property="og:description" content="김영곤과 함께 달리는 경남 교육 대항해!">
-    <meta property="og:image" content="run.png"> 
+    <meta property="og:image" content="run.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
     <title>슈퍼 영곤 러너</title>
     <style>
-        :root { --main: #FF8A00; }
+        :root { --main: #FF8A00; --sky: #87CEEB; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { margin: 0; background: #222; overflow: hidden; font-family: 'Pretendard', sans-serif; touch-action: none; }
-        #stage { position: relative; width: 100vw; height: 100vh; max-width: 480px; margin: 0 auto; background: #87CEEB; overflow: hidden; transition: 0.8s; }
         
-        /* 시작 안내 */
+        #stage { position: relative; width: 100vw; height: 100vh; max-width: 480px; margin: 0 auto; background: var(--sky); overflow: hidden; transition: background 0.8s; }
+        
+        /* 안내 레이어 */
         #start-guide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 500; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; }
         .touch-icon { font-size: 70px; animation: b 1s infinite; }
         @keyframes b { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-        /* 바닥 */
+        /* 바닥 애니메이션 */
         #floor { position: absolute; bottom: 0; width: 200%; height: 60px; background: linear-gradient(90deg, #8BC34A 50%, #689F38 50%); background-size: 80px 100%; animation: f 0.8s linear infinite; z-index: 10; }
         @keyframes f { from { transform: translateX(0); } to { transform: translateX(-80px); } }
         
-        /* UI */
+        /* 상단 UI */
         #ui { position: absolute; top: 25px; width: 100%; z-index: 100; text-align: center; color: white; text-shadow: 2px 2px 5px #000; }
         
-        /* 캐릭터 */
+        /* 콧수염 없는 깔끔한 캐릭터 */
         #hero-p { position: absolute; left: 50px; bottom: 60px; z-index: 50; display: flex; flex-direction: column; align-items: center; transition: 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
         .name-label { background: rgba(0,0,0,0.7); color: #fff; font-size: 14px; padding: 4px 10px; border-radius: 10px; margin-bottom: 5px; font-weight: bold; }
         #hero { font-size: 70px; animation: r 0.3s infinite alternate; }
         @keyframes r { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
         
-        /* 오브젝트 */
+        /* 큼직한 아이템/장애물 */
         .obj { position: absolute; z-index: 40; font-size: 65px; display: flex; flex-direction: column; align-items: center; }
         .tag { font-size: 16px; background: #fff; padding: 4px 10px; border-radius: 8px; margin-bottom: 6px; font-weight: 900; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
         
-        /* 엔딩 */
+        /* 결과 화면 */
         #end { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,138,0,0.98); display: none; z-index: 1000; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; padding: 20px; }
+        button { padding: 15px 40px; border-radius: 30px; border: none; background: #fff; color: var(--main); font-weight: 900; font-size: 20px; cursor: pointer; margin-top: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body onclick="handleTouch()">
@@ -49,7 +51,7 @@
 <div id="stage">
     <div id="start-guide">
         <div class="touch-icon">👆</div>
-        <div style="font-size: 24px; margin-top: 15px; font-weight:bold;">터치하면<br>슈퍼 영곤 러너 시작!</div>
+        <div style="font-size: 24px; margin-top: 15px; font-weight:bold;">터치하면 시작!<br>슈퍼 영곤 러너</div>
     </div>
 
     <div id="ui">
@@ -60,14 +62,14 @@
     
     <div id="hero-p">
         <div class="name-label">김영곤</div>
-        <div id="hero">👦🏻</div>
-    </div>
+        <div id="hero">👦🏻</div> </div>
+    
     <div id="floor"></div>
+    
     <div id="end">
-        <h1 style="font-size:48px;">🎊 당선 확정! 🎊</h1>
-        <div style="font-size:120px;">👨🏻‍💼</div>
-        <p style="font-weight:bold; font-size:22px;">경남교육감 김영곤 탄생!</p>
-        <button onclick="location.reload()" style="padding:15px 40px; border-radius:30px; border:none; background:#fff; color:var(--main); font-weight:900; font-size:20px;">다시 하기</button>
+        <h1 style="font-size:48px; margin-bottom:10px;">🎊 당선 확정! 🎊</h1>
+        <div id="hero-end" style="font-size:120px; margin: 10px 0;">👨🏻‍💼</div> <p style="font-weight:bold; font-size:22px; line-height:1.5;">150점 만점 달성!<br>경남교육감 김영곤 탄생!</p>
+        <button onclick="location.reload()">다시 하기</button>
     </div>
 </div>
 
@@ -78,23 +80,28 @@
         { n: "진주", bg: "#A5D8FF", i: "📚", e: "🧱", iN: "에듀콘텐츠", eN: "노후시설" },
         { n: "사천", bg: "#2B3A67", i: "🚀", e: "🚫", iN: "우주교육", eN: "인재유출" },
         { n: "의령", bg: "#D8F5A2", i: "🤝", e: "🏚️", iN: "공동학교", eN: "학교폐쇄" },
-        { n: "김해", bg: "#FFD8A8", i: "🏛️", e: "📉", iN: "가야교실", eN: "문화격차" },
-        { n: "창원", bg: "#E9ECEF", i: "💻", e: "🌫️", iN: "디지털교육", eN: "정보격차" }
+        { n: "김해", bg: "#FFD8A8", i: "🏛️", iN: "가야교실", e: "📉", eN: "문화격차" },
+        { n: "창원", bg: "#E9ECEF", i: "💻", iN: "디지털교육", e: "🌫️", eN: "정보격차" }
     ];
 
     function handleTouch() {
         if (!gameActive) {
             gameActive = true;
             document.getElementById('start-guide').style.display = 'none';
-            setInterval(create, 1500); 
+            setInterval(create, 1600); 
         }
         jump();
     }
+
     function jump() {
         if (isJ) return; isJ = true;
         document.getElementById('hero-p').style.bottom = "260px";
-        setTimeout(() => { document.getElementById('hero-p').style.bottom = "60px"; setTimeout(() => isJ = false, 300); }, 400);
+        setTimeout(() => { 
+            document.getElementById('hero-p').style.bottom = "60px"; 
+            setTimeout(() => isJ = false, 300); 
+        }, 400);
     }
+
     function create() {
         if (!gameActive) return;
         const isI = Math.random() > 0.4, obj = document.createElement('div'), data = rgs[rIdx % rgs.length];
@@ -103,6 +110,7 @@
         obj.style.bottom = isI ? "230px" : "60px";
         obj.style.left = "100%";
         document.getElementById('stage').appendChild(obj);
+        
         let px = window.innerWidth;
         let m = setInterval(() => {
             px -= 7; obj.style.left = px + "px";
@@ -116,15 +124,23 @@
             if (px < -150) { obj.remove(); clearInterval(m); }
         }, 16);
     }
+
     function updateGame() {
-        if (score >= 150) { document.getElementById('end').style.display = 'flex'; gameActive = false; return; }
+        if (score >= 150) {
+            document.getElementById('end').style.display = 'flex';
+            gameActive = false;
+            return;
+        }
+        // 25점마다 스테이지 변경 (총 6개 지역)
         let newIdx = Math.floor(score / 25);
         if (newIdx !== rIdx && newIdx < rgs.length) {
             rIdx = newIdx;
             document.getElementById('l').innerText = rgs[rIdx].n;
             document.getElementById('stage').style.background = rgs[rIdx].bg;
         }
+        // 75점부터 깔끔한 성인 전문가로 변신 (콧수염 없는 👨🏻‍💼)
         if (score >= 75) document.getElementById('hero').innerText = "👨🏻‍💼";
+        else document.getElementById('hero').innerText = "👦🏻";
     }
 </script>
 </body>
