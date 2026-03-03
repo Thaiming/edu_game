@@ -14,27 +14,15 @@ html { scroll-behavior: smooth; }
 body { font-family: 'Pretendard', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; word-break: keep-all; }
 a { text-decoration: none; color: inherit; }
 
-/* NAV - 모바일 최적화 네비게이션 */
-nav { 
-  position: fixed; top:0; width:100%; height:70px; z-index:1000; 
-  display: flex; align-items:center; justify-content:space-between; 
-  padding: 0 5%; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); 
-  border-bottom: 1px solid var(--line); 
-}
-/* 로고 영역 수정 */
+/* NAV */
+nav { position: fixed; top:0; width:100%; height:70px; z-index:1000; display: flex; align-items:center; justify-content:space-between; padding: 0 5%; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
 .n-logo { font-family:'Noto Serif KR'; font-weight:900; font-size:1.1rem; white-space: nowrap; }
 .n-logo span { font-family:'Pretendard'; font-size:0.75rem; color:var(--mg); font-weight:700; margin-left:5px; vertical-align: middle; }
 
-/* 햄버거 메뉴 버튼 */
 .menu-trigger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
 .menu-trigger span { width: 25px; height: 3px; background: var(--ink); border-radius: 2px; transition: 0.3s; }
 
-/* 메뉴 리스트 */
-.n-menu { 
-  position: fixed; top: 70px; right: -100%; width: 75%; height: calc(100vh - 70px); 
-  background: #fff; display: flex; flex-direction: column; gap: 20px; padding: 40px;
-  transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1); border-left: 1px solid var(--line);
-}
+.n-menu { position: fixed; top: 70px; right: -100%; width: 75%; height: calc(100vh - 70px); background: #fff; display: flex; flex-direction: column; gap: 20px; padding: 40px; transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1); border-left: 1px solid var(--line); }
 .n-menu.active { right: 0; }
 .n-menu li a { font-size: 1.1rem; font-weight: 700; color: #333; display: block; }
 .n-support-btn { background: var(--mg); color: #fff !important; padding: 15px; border-radius: 12px; text-align: center; margin-top: 10px; }
@@ -50,7 +38,7 @@ nav {
 .sec { padding: 100px 5%; width: 100%; }
 .title-main { font-family:'Noto Serif KR'; font-size: clamp(1.8rem, 5vw, 2.2rem); font-weight:900; margin-bottom:30px; line-height:1.4; }
 
-/* 2. ABOUT - 자기소개 문구 수정 */
+/* 2. ABOUT */
 #about { background: #fff; }
 .about-wrap { display: flex; flex-direction: column; gap: 40px; }
 .about-img img { width: 100%; max-width: 420px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); display: block; margin: 0 auto; }
@@ -65,11 +53,11 @@ nav {
 .ph-icon { font-size: 2.8rem; margin-bottom: 15px; display: block; }
 .ph-item h3 { font-family:'Noto Serif KR'; font-size: 1.7rem; margin-bottom: 10px; color: var(--mg); }
 
-/* 4. PLEDGE */
+/* 4. PLEDGE (13대 정책 완전 복원) */
 #pledge { background: #f1f3f5; }
 .p-cat-title { font-family:'Noto Serif KR'; font-size: 1.5rem; color: var(--ink); border-left: 6px solid var(--mg); padding-left: 15px; margin: 50px 0 25px; }
 .p-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-.p-card { background: #wh; padding: 25px; border-radius: 16px; border: 1px solid var(--line); background: #fff; }
+.p-card { background: #fff; padding: 25px; border-radius: 16px; border: 1px solid var(--line); }
 .p-card h4 { font-size: 1.1rem; color: var(--mg); margin-bottom: 8px; font-weight: 800; }
 .p-card p { font-size: 0.9rem; color: #555; }
 
@@ -87,16 +75,13 @@ nav {
 .acct-info { border: 2px solid var(--mg); padding: 40px 20px; border-radius: 24px; margin-top: 30px; background: rgba(255,0,110,0.08); }
 .acct-num { font-size: 1.8rem; font-weight: 800; display: block; margin: 15px 0; letter-spacing: 1px; }
 
-/* PC 반응형 설정 */
+/* RESPONSIVE */
 @media (min-width: 1024px) {
   .menu-trigger { display: none; }
-  .n-menu { 
-    position: static; display: flex; flex-direction: row; width: auto; height: auto; 
-    background: none; border: none; padding: 0; right: 0; gap: 25px;
-  }
+  .n-menu { position: static; display: flex; flex-direction: row; width: auto; height: auto; background: none; border: none; padding: 0; gap: 25px; }
   .n-menu li a { font-size: 0.9rem; color: #555; font-weight: 600; }
   .n-menu li a:hover { color: var(--mg); }
-  .n-support-btn { background: var(--mg); color: #fff !important; padding: 8px 22px; border-radius: 50px; }
+  .n-support-btn { background: var(--mg); color: #fff !important; padding: 8px 22px; border-radius: 50px; margin-top: 0; }
   .about-wrap { flex-direction: row; align-items: flex-start; }
   .career-grid { grid-template-columns: repeat(2, 1fr); }
   .ph-grid { grid-template-columns: repeat(3, 1fr); }
@@ -124,7 +109,7 @@ nav {
 </nav>
 
 <section id="hero">
-  <span class="h-label">경남교육감 예비후보</span>
+  <span class="h-label">GYEONGNAM EDUCATION 2026</span>
   <h1 class="h-name">김영<span>곤</span></h1>
   <p class="h-slogan">"아이의 하루를 책임지겠습니다"</p>
 </section>
@@ -155,11 +140,30 @@ nav {
 
 <section id="pledge" class="sec">
   <h2 class="title-main" style="text-align: center;">경남을 바꾸는 핵심 정책</h2>
+  
   <h3 class="p-cat-title">🛡️ 안전한 하루 <span>| 생활·돌봄</span></h3>
   <div class="p-grid">
     <div class="p-card"><h4>세이프-존 365</h4><p>통학로 위험도 전수 조사 및 안전 인프라 구축</p></div>
     <div class="p-card"><h4>굿모닝 경남 아침 책임제</h4><p>결식 없는 아침밥 지원 및 돌봄 연계</p></div>
     <div class="p-card"><h4>세이프-홈 안심 귀가</h4><p>하굣길 디지털 안심 그리드 및 귀가 도우미 배치</p></div>
+    <div class="p-card"><h4>급식·쉼터 공간 혁신</h4><p>로컬푸드 기반 테마 급식 및 카페형 쉼터 조성</p></div>
+  </div>
+
+  <h3 class="p-cat-title">📈 탄탄한 실력 <span>| 학력·입시</span></h3>
+  <div class="p-grid">
+    <div class="p-card"><h4>기초학력 결손 ZERO</h4><p>AI 학습 분석 플랫폼 및 교육감 직속 튜터제</p></div>
+    <div class="p-card"><h4>공교육 입시 책임 '에듀-네비'</h4><p>대입정보센터 상설화 및 진학 전문가 양성</p></div>
+    <div class="p-card"><h4>과학고·국제고 설립</h4><p>지역 특화 특목고 설립으로 우수인재 유출 방지</p></div>
+    <div class="p-card"><h4>기숙형 에듀-빌리지</h4><p>거점 고교 활성화 및 12년 연계 교육과정</p></div>
+  </div>
+
+  <h3 class="p-cat-title">🚀 앞서가는 미래 <span>| 전문성·상생</span></h3>
+  <div class="p-grid">
+    <div class="p-card"><h4>AI+인문 교육 전환</h4><p>질문형 수업 도입 및 디지털 윤리 교육 강화</p></div>
+    <div class="p-card"><h4>경남 AI 미래인재원</h4><p>실험 중심 AI 교육 거점 구축 및 글로벌 협력</p></div>
+    <div class="p-card"><h4>글로벌 브릿지 프로젝트</h4><p>이중언어 영재교육 상설화 및 기업 인턴십 매칭</p></div>
+    <div class="p-card"><h4>다독임 화해중재단</h4><p>교육감 직속 갈등조정관 파견 및 분쟁 해결</p></div>
+    <div class="p-card"><h4>교사 존중·전문성 보호</h4><p>교권 신속 법률 대응단 및 업무 경감 로드맵</p></div>
   </div>
 </section>
 
