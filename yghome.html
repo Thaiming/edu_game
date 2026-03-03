@@ -3,97 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>김영곤 — 아이의 하루를 책임지는 경남교육</title>
+<title>김영곤 — 경남교육감 예비후보</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;900&family=Pretendard:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Pretendard:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ── 디자인 시스템 ── */
-:root { 
-  --mg: #FF006E; /* 선명한 마젠타 */
-  --ink: #050A14; 
-  --bg: #F8F9FA; 
-  --line: rgba(0,0,0,0.08); 
-}
-
-/* ── 폰트 및 베이스 ── */
+:root { --mg: #FF006E; --ink: #050A14; --bg: #F8F9FA; --line: rgba(0,0,0,0.1); }
 * { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing: antialiased; }
-html, body { width: 100%; height: auto; overflow-x: hidden; }
-body { 
-  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; 
-  background: var(--bg); color: var(--ink); line-height: 1.7; word-break: keep-all; 
-}
-a { text-decoration: none; color: inherit; transition: 0.3s; }
+body { font-family: 'Pretendard', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; word-break: keep-all; }
+a { text-decoration: none; color: inherit; }
 
-/* ── 네비게이션 ── */
-nav { 
-  position: fixed; top:0; width:100%; height:64px; z-index:1000; 
-  display: flex; align-items:center; justify-content:space-between; 
-  padding: 0 5%; background: rgba(255,255,255,0.95); 
-  backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); 
-}
-.n-logo { font-family:'Noto Serif KR'; font-weight:900; font-size:1.15rem; color:var(--ink); }
+/* NAV */
+nav { position: fixed; top:0; width:100%; height:64px; z-index:1000; display: flex; align-items:center; justify-content:space-between; padding: 0 5%; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.n-logo { font-family:'Noto Serif KR'; font-weight:900; font-size:1.1rem; }
 
-/* ── 1. 첫 페이지 (HERO) ── */
-#hero { 
-  padding: 160px 5% 100px; background: var(--ink); color: #fff; text-align: center; 
-  min-height: 85vh; display: flex; flex-direction: column; justify-content: center; 
-}
-.h-label { font-size:0.95rem; font-weight:700; color:var(--mg); letter-spacing:4px; margin-bottom:12px; display:block; }
-.h-name { font-family:'Noto Serif KR'; font-size: clamp(4.5rem, 12vw, 7.5rem); font-weight:900; line-height:0.9; margin-bottom:15px; letter-spacing: -3px; }
+/* 1. HERO */
+#hero { padding: 160px 5% 100px; background: var(--ink); color: #fff; text-align: center; min-height: 70vh; display: flex; flex-direction: column; justify-content: center; }
+.h-name { font-family:'Noto Serif KR'; font-size: clamp(4.5rem, 12vw, 7.5rem); font-weight:900; line-height:0.9; margin-bottom:15px; }
 .h-name span { color: var(--mg); }
-.h-slogan { font-size: 1.6rem; font-weight:300; color: rgba(255,255,255,0.95); letter-spacing: -0.5px; }
+.h-slogan { font-size: 1.5rem; font-weight:400; opacity: 0.9; }
 
-/* ── 섹션 공통 ── */
-.sec { padding: 100px 5%; width: 100%; display: block; clear: both; }
-.title { font-family:'Noto Serif KR'; font-size: 2.3rem; font-weight:900; margin-bottom:30px; line-height:1.3; letter-spacing: -1px; }
-.label { color: var(--mg); font-weight: 700; letter-spacing: 3px; display: block; margin-bottom: 12px; font-size: 0.8rem; text-transform: uppercase; }
-
-/* ── 2. 소개 (ABOUT) ── */
-#about { background: #fff; border-bottom: 1px solid var(--line); }
+/* 2. ABOUT */
+.sec { padding: 100px 5%; width: 100%; }
+#about { background: #fff; }
 .about-wrap { display: flex; flex-direction: column; gap: 40px; }
-.about-img { width: 100%; max-width: 420px; margin: 0 auto; line-height: 0; }
-.about-img img { width: 100%; height: auto; display: block; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
-.career-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 25px; }
-.career-item { padding: 20px; background: var(--bg); border-radius: 14px; border: 1px solid var(--line); }
-.career-item b { font-size: 0.8rem; color: var(--mg); display: block; margin-bottom: 6px; font-weight: 700; }
-.career-item p { font-size: 1.05rem; font-weight: 600; color: #111; }
+.about-img img { width: 100%; max-width: 420px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+.career-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 20px; }
+.career-item { padding: 18px; background: var(--bg); border-radius: 12px; border: 1px solid var(--line); }
+.career-item b { font-size: 0.8rem; color: var(--mg); display: block; margin-bottom: 4px; }
+.career-item p { font-size: 1rem; font-weight: 700; }
 
-/* ── 3. 공약 (PLEDGE) ── */
+/* 3. PLEDGE (공약 가독성 강화) */
 #pledge { background: #f1f3f5; }
-.p-grid { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: 30px; }
-.p-card { background: #fff; padding: 30px; border-radius: 18px; border: 1px solid var(--line); box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
-.p-card h3 { font-family:'Noto Serif KR'; font-size: 1.25rem; color: var(--mg); margin-bottom: 12px; font-weight: 900; }
-.p-card p { font-size: 0.95rem; color: #444; line-height: 1.6; }
+.p-header { text-align: center; margin-bottom: 50px; }
+.p-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.p-card { background: #fff; padding: 30px; border-radius: 20px; border: 1px solid var(--line); position: relative; transition: 0.3s; overflow: hidden; }
+.p-card:hover { transform: translateY(-5px); border-color: var(--mg); }
+.p-num { position: absolute; top: -10px; right: 10px; font-size: 4rem; font-weight: 900; color: rgba(255, 0, 110, 0.05); }
+.p-card h3 { font-family:'Noto Serif KR'; font-size: 1.3rem; color: var(--ink); margin-bottom: 12px; font-weight: 900; display: flex; align-items: center; gap: 10px; }
+.p-card h3::before { content: ''; width: 4px; height: 18px; background: var(--mg); border-radius: 10px; }
+.p-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
 
-/* ── 4. 활동사진 (GALLERY) ── */
-.g-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 30px; }
-.g-item { width: 100%; aspect-ratio: 1/1; background: #eee; border-radius: 16px; overflow: hidden; }
-.g-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-.g-item:hover img { transform: scale(1.05); }
+/* 4. GALLERY */
+.g-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.g-item { aspect-ratio: 1/1; background: #eee; border-radius: 12px; overflow: hidden; }
+.g-item img { width: 100%; height: 100%; object-fit: cover; }
 
-/* ── 5. SNS (로고 최적화) ── */
-#sns { background: #f8f9fa; text-align: center; }
-.sns-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 35px; }
-.sns-link { 
-  display: flex; align-items: center; justify-content: center; gap: 12px;
-  padding: 20px; background: #fff; border-radius: 14px; border: 1px solid var(--line); 
-  font-size: 1rem; font-weight: 700; color: #333; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-}
-.sns-link img { width: 24px; height: 24px; object-fit: contain; }
-.sns-link:hover { border-color: var(--mg); transform: translateY(-3px); }
+/* 5. SNS (로고 확실히 보이게 수정) */
+.sns-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 30px; }
+.sns-link { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 18px; background: #fff; border-radius: 12px; border: 1px solid var(--line); font-size: 0.95rem; font-weight: 700; }
+.sns-link img { width: 24px; height: 24px; }
 
-/* ── 6. 후원 (SUPPORT) ── */
-#support { background: var(--ink); color: #fff; text-align: center; padding: 120px 5%; }
-.acct-info { border: 2px solid var(--mg); padding: 50px 20px; border-radius: 28px; margin-top: 35px; background: rgba(255,0,110,0.08); }
-.acct-num { font-size: 2.2rem; font-weight: 800; letter-spacing: 1px; display: block; margin: 15px 0; color: #fff; }
+/* 6. SUPPORT */
+#support { background: var(--ink); color: #fff; text-align: center; padding: 100px 5%; }
+.acct-info { border: 2px solid var(--mg); padding: 40px 20px; border-radius: 24px; margin-top: 30px; }
+.acct-num { font-size: 2.2rem; font-weight: 800; color: #fff; display: block; margin: 10px 0; }
 
-footer { padding: 60px 5%; text-align: center; background: #fff; font-size: 0.85rem; color: #888; border-top: 1px solid var(--line); }
-
-/* ── 반응형 레이아웃 ── */
 @media (min-width: 768px) {
-  .about-wrap { flex-direction: row; align-items: flex-start; }
-  .career-grid, .p-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-wrap { flex-direction: row; }
+  .p-grid { grid-template-columns: repeat(2, 1fr); }
   .sns-row, .g-grid { grid-template-columns: repeat(4, 1fr); }
 }
 @media (min-width: 1200px) {
@@ -105,11 +73,10 @@ footer { padding: 60px 5%; text-align: center; background: #fff; font-size: 0.85
 
 <nav>
   <a href="#" class="n-logo">김영곤 <span>경남교육감 예비후보</span></a>
-  <a href="#support" style="background:var(--mg); color:#fff; padding:10px 22px; border-radius:50px; font-size:0.85rem; font-weight:700;">후원하기</a>
+  <a href="#support" style="background:var(--mg); color:#fff; padding:8px 18px; border-radius:50px; font-size:0.8rem; font-weight:700;">후원하기</a>
 </nav>
 
 <section id="hero">
-  <span class="h-label">경남교육감 예비후보</span>
   <h1 class="h-name">김영<span>곤</span></h1>
   <p class="h-slogan">"아이의 하루를 책임지겠습니다"</p>
 </section>
@@ -118,79 +85,68 @@ footer { padding: 60px 5%; text-align: center; background: #fff; font-size: 0.85
   <div class="about-wrap">
     <div class="about-img"><img src="yg.jpg" alt="김영곤 예비후보"></div>
     <div class="about-content">
-      <span class="label">PROFILE</span>
-      <h2 class="title">경남이 키운 교육 전문가<br>경남교육감 예비후보 김영곤입니다.</h2>
+      <h2 style="font-family:'Noto Serif KR'; font-size: 2.2rem; margin-bottom: 20px;">경남이 키운 교육 전문가<br>예비후보 김영곤입니다.</h2>
       <div class="career-grid">
-        <div class="career-item"><b>출신</b><p>경남 남해군 (진주고 졸업)</p></div>
-        <div class="career-item"><b>학력</b><p>서울대 사범대 학사 / 동국대 박사</p></div>
-        <div class="career-item"><b>행정</b><p>행정고시 36회 합격 / 전) 교육부 차관보</p></div>
-        <div class="career-item"><b>글로벌</b><p>OECD 교육국 정책분석가 (파리)</p></div>
-        <div class="career-item"><b>역임</b><p>전) 국립국제교육원장</p></div>
-        <div class="career-item"><b>저서</b><p>『행복교육의 역설을 넘어』 (2025)</p></div>
+        <div class="career-item"><b>출신</b><p>경남 남해군</p></div>
+        <div class="career-item"><b>학력</b><p>서울대 학사 / 교육학 박사</p></div>
+        <div class="career-item"><b>경력</b><p>전) 교육부 차관보</p></div>
+        <div class="career-item"><b>글로벌</b><p>OECD 교육국 정책분석가</p></div>
       </div>
     </div>
   </div>
 </section>
 
 <section id="pledge" class="sec">
-  <span class="label">MISSION</span>
-  <h2 class="title" style="text-align: center;">아이의 하루를 책임지는 13가지 약속</h2>
+  <div class="p-header">
+    <span style="color:var(--mg); font-weight:800; letter-spacing:3px;">13 CORE PLEDGES</span>
+    <h2 style="font-family:'Noto Serif KR'; font-size: 2.3rem; margin-top:10px;">아이의 하루를 책임지는 약속</h2>
+  </div>
+  
   <div class="p-grid">
-    <div class="p-card"><h3>01 세이프-존 365</h3><p>통학로 전수 위험도 조사 및 3개년 단계별 개선 로드맵 수립을 통한 안전 확보</p></div>
-    <div class="p-card"><h3>02 굿모닝 경남 아침책임</h3><p>희망 학생 대상 아침밥 단계적 지원 확대 및 급식 인프라 효율적 운영</p></div>
-    <div class="p-card"><h3>03 기초학력 결손 ZERO</h3><p>AI 학습 분석 플랫폼 Edu-Check 구축 및 교육감 직속 1:1 전담 튜터제</p></div>
-    <div class="p-card"><h3>04 AI+Humanism 교육</h3><p>'정답 없는 교실' 질문형 수업 모델 도입 및 인문 융합 교육 강화</p></div>
-    <div class="p-card"><h3>05 AI 미래인재 교육원</h3><p>실험 중심 교육원 건립 및 글로벌 AI 연구기관 협력 체계 구축</p></div>
-    <div class="p-card"><h3>06 과학고·국제고 설립</h3><p>지역 특성 반영 특목고 설립 추진을 통한 우수인재 지역 유출 방지</p></div>
-    <div class="p-card"><h3>10 공교육 입시 책임제</h3><p>대입정보센터 상설화 및 진학전문가 1,000명 양성 (에듀-네비)</p></div>
-    <div class="p-card"><h3>12 교사 전문성 회복</h3><p>교권 신속 법률 대응단 및 교원 마음치유 센터 확대를 통한 교권 보호</p></div>
-    <div class="p-card"><h3>13 교육 클러스터</h3><p>초·중·고 12년 연계 교육과정 및 기숙형 거점고 에듀-빌리지 조성</p></div>
+    <div class="p-card"><div class="p-num">01</div><h3>세이프-존 365</h3><p>통학로 전수 위험도 조사 및 3개년 단계별 안전 인프라 구축</p></div>
+    <div class="p-card"><div class="p-num">02</div><h3>아침 책임제</h3><p>결식 없는 아침밥 단계적 지원 확대 및 아침 돌봄 연계</p></div>
+    <div class="p-card"><div class="p-num">03</div><h3>기초학력 ZERO</h3><p>AI 분석 Edu-Check 플랫폼 및 교육감 직속 튜터제 운영</p></div>
+    <div class="p-card"><div class="p-num">04</div><h3>AI+인문 교육</h3><p>질문형 수업 모델 도입 및 디지털 윤리·예술 융합 교육 강화</p></div>
+    <div class="p-card"><div class="p-num">05</div><h3>미래인재 교육원</h3><p>실험 중심 AI 미래교육원 건립 및 글로벌 인재 양성</p></div>
+    <div class="p-card"><div class="p-num">06</div><h3>과학고·국제고 설립</h3><p>경남의 우수 인재 유출 방지를 위한 특목고 설립 추진</p></div>
+    <div class="p-card"><div class="p-num">07</div><h3>글로벌 브릿지</h3><p>다문화 인재 뱅크 구축 및 글로벌 기업 인턴십 매칭</p></div>
+    <div class="p-card"><div class="p-num">08</div><h3>급식·쉼터 혁신</h3><p>로컬푸드 기반 테마 급식 및 카페형 학생 복합 쉼터 조성</p></div>
+    <div class="p-card"><div class="p-num">09</div><h3>다독임 화해중재단</h3><p>교육감 직속 갈등조정관 배치를 통한 회복 중심 갈등 해결</p></div>
+    <div class="p-card"><div class="p-num">10</div><h3>입시 책임 '에듀-네비'</h3><p>대입정보센터 상설화 및 전문 진학상담사 1,000명 양성</p></div>
+    <div class="p-card"><div class="p-num">11</div><h3>Safe-Home 귀가</h3><p>하굣길 디지털 안심 그리드 구축 및 귀가 도우미 배치</p></div>
+    <div class="p-card"><div class="p-num">12</div><h3>교사 존중·교권 보호</h3><p>교권 신속 법률 대응단 및 교원 마음치유 센터 확대</p></div>
+    <div class="p-card"><div class="p-num">13</div><h3>기숙형 에듀-빌리지</h3><p>12년 연계 교육과정 및 지역 거점 기숙형 고교 운영</p></div>
   </div>
 </section>
 
 <section id="gallery" class="sec" style="background:#fff;">
-  <span class="label">GALLERY</span>
-  <h2 class="title">현장에서 답을 찾는 행보</h2>
+  <h2 style="font-family:'Noto Serif KR'; font-size: 2rem; margin-bottom: 30px;">현장 활동</h2>
   <div class="g-grid">
-    <div class="g-item"><img src="g1.jpg" alt="활동"></div>
-    <div class="g-item"><img src="g2.jpg" alt="활동"></div>
-    <div class="g-item"><img src="g3.jpg" alt="활동"></div>
-    <div class="g-item"><img src="g4.jpg" alt="활동"></div>
+    <div class="g-item"></div><div class="g-item"></div><div class="g-item"></div><div class="g-item"></div>
   </div>
 </section>
 
 <section id="sns" class="sec">
-  <span class="label">COMMUNICATION</span>
-  <h2 class="title">소통하는 예비후보</h2>
+  <h2 style="font-family:'Noto Serif KR'; font-size: 2rem; text-align: center;">소통 채널</h2>
   <div class="sns-row">
-    <a href="https://www.facebook.com/younggonk6" target="_blank" class="sns-link">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="FB"> 페이스북
-    </a>
-    <a href="https://www.instagram.com/younggonk6" target="_blank" class="sns-link">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="IG"> 인스타그램
-    </a>
-    <a href="https://blog.naver.com/younggonk6" target="_blank" class="sns-link">
-      <img src="https://blog.kakaocdn.net/dn/bcN02K/btrC3k2Pj8Z/V8m7kGkQkkpWfRkKKkKkK1/img.png" alt="N"> 블로그
-    </a>
-    <a href="https://www.band.us/band/100335190" target="_blank" class="sns-link">
-      <img src="https://blog.kakaocdn.net/dn/bWnL1O/btrC3l7vH9P/KkKkKkKkKkKkKkKkKkKkK1/img.png" alt="B"> 밴드
-    </a>
+    <a href="https://facebook.com/younggonk6" target="_blank" class="sns-link"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png"> 페이스북</a>
+    <a href="https://instagram.com/younggonk6" target="_blank" class="sns-link"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"> 인스타그램</a>
+    <a href="https://blog.naver.com/younggonk6" target="_blank" class="sns-link"><img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Naver_Blog_Icon.png"> 블로그</a>
+    <a href="https://band.us/band/100335190" target="_blank" class="sns-link"><img src="https://cdn-icons-png.flaticon.com/512/2504/2504911.png"> 밴드</a>
   </div>
 </section>
 
 <section id="support" class="sec">
-  <span class="label" style="color:#fff; opacity:0.7;">SUPPORT</span>
-  <h2 class="title" style="color:#fff;">경남 교육의 미래를 후원해 주십시오</h2>
+  <h2 style="font-family:'Noto Serif KR'; font-size: 2rem;">후원 안내</h2>
   <div class="acct-info">
-    <b style="color:var(--mg); font-size:0.95rem; letter-spacing:2px; display:block;">농협은행 (예비후보자 후원회)</b>
+    <p>농협은행 (예비후보자 후원회)</p>
     <span class="acct-num">301-0380-9752-51</span>
-    <p style="opacity: 0.7; font-size: 0.9rem; margin-top: 15px;">예금주: 경상남도교육감 예비후보자 김영곤 후원회</p>
+    <p>예금주: 경상남도교육감 예비후보자 김영곤 후원회</p>
   </div>
 </section>
 
-<footer>
-  <div style="font-family:'Noto Serif KR'; font-weight:900; font-size:1.4rem; margin-bottom:15px; color:var(--ink);">김영곤</div>
-  <p>© 2026 CAMP YOUNG GON. ALL RIGHTS RESERVED.<br>본 사이트는 공직선거법을 준수합니다.</p>
+<footer style="padding: 40px; text-align: center; font-size: 0.8rem; color: #999;">
+  © 2026 CAMP YOUNG GON. ALL RIGHTS RESERVED.
 </footer>
 
 </body>
