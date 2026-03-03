@@ -306,6 +306,7 @@ h2.title.lt { color:#fff; }
   background:var(--bg2);
   width: 100%;
   overflow:hidden;
+  position: relative;
 }
 .aph-inner {
   display:flex; flex-direction:column; align-items:center; gap:10px;
@@ -388,9 +389,12 @@ h2.title.lt { color:#fff; }
    세부 정책
 ═══════════════════════════ */
 .policy-wrap {
-  display:grid; grid-template-columns:260px 1fr; gap:48px; align-items:start;
+  display:grid; grid-template-columns:220px 1fr; gap:48px; align-items:start;
 }
-.pol-nav { position:sticky; top:84px; }
+.pol-nav { 
+  position:sticky; top:84px;
+  display:flex; flex-direction:column;
+}
 .pol-btn {
   display:flex; align-items:center; gap:14px;
   padding:16px 18px; cursor:pointer;
@@ -398,6 +402,7 @@ h2.title.lt { color:#fff; }
   transition: all .2s;
   font-size:.88rem; font-weight:500; color:var(--g2);
   user-select:none;
+  white-space:nowrap;
 }
 .pol-btn .pn { font-size:.7rem; font-weight:700; color:var(--mg); opacity:.4; letter-spacing:1px; min-width:20px; }
 .pol-btn.on { border-left-color:var(--mg); background:var(--bg2); color:var(--mg); font-weight:700; }
