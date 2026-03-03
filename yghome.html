@@ -3,47 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>김영곤 — 경남교육의 새로운 미래</title>
+<title>김영곤 — 경남교육감 예비후보</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Pretendard:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root { --mg: #FF006E; --ink: #050A14; --bg: #F8F9FA; --wh: #FFFFFF; --line: rgba(0,0,0,0.1); }
+/* ── 디자인 시스템 ── */
+:root {
+  --mg: #FF006E; /* 마젠타 포인트 */
+  --ink: #050A14; 
+  --bg: #F8F9FA;
+  --wh: #FFFFFF;
+  --line: rgba(0,0,0,0.1);
+  --g2: #666;
+}
+
+/* ── 베이스 및 레이아웃 ── */
 * { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing: antialiased; }
 html, body { width: 100%; height: auto; overflow-x: hidden; }
 body { font-family: 'Pretendard', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+a { text-decoration: none; color: inherit; }
 
-/* NAV */
-nav { position: fixed; top:0; width:100%; height:64px; z-index:1000; display: flex; align-items:center; justify-content:space-between; padding: 0 5%; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
-.n-logo { font-family:'Noto Serif KR'; font-weight:900; font-size:1.1rem; text-decoration:none; color:var(--ink); }
-.n-logo span { font-family:'Pretendard'; font-size:0.7rem; color:var(--g2); font-weight:400; margin-left:8px; }
-.n-btn-support { background: var(--mg); color: #fff; padding: 8px 18px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; text-decoration: none; }
+/* ── 네비게이션 ── */
+nav {
+  position: fixed; top:0; width:100%; height:64px; z-index:1000;
+  display: flex; align-items:center; justify-content:space-between;
+  padding: 0 5%; background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+}
+.n-logo { font-family:'Noto Serif KR'; font-weight:900; font-size:1.1rem; color:var(--ink); }
+.n-logo span { font-size:0.7rem; color:var(--g2); font-weight:700; margin-left:8px; }
 
-/* HERO - 요청하신 직함 배치 및 이름 강조 */
-#hero { padding: 150px 5% 100px; background: var(--ink); color: #fff; text-align: center; }
+/* ── 1. 첫 페이지 (HERO) — '곤' 마젠타 적용 ── */
+#hero {
+  padding: 160px 5% 100px; background: var(--ink); color: #fff; text-align: center;
+  min-height: 80vh; display: flex; flex-direction: column; justify-content: center;
+}
 .h-label { font-size:0.9rem; font-weight:700; color:var(--mg); letter-spacing:3px; margin-bottom:10px; display:block; }
 .h-name { font-family:'Noto Serif KR'; font-size: clamp(4.5rem, 12vw, 7.5rem); font-weight:900; line-height:0.9; margin-bottom:15px; }
-.h-name span { color: var(--mg); }
-.h-slogan { font-size: 1.4rem; font-weight:400; line-height: 1.5; color: rgba(255,255,255,0.9); }
-.h-slogan b { color: var(--mg); font-weight: 800; font-size: 1.6rem; }
+.h-name span { color: var(--mg); } /* '곤' 자에 마젠타 컬러 적용 */
+.h-slogan { font-size: 1.5rem; font-weight:400; color: rgba(255,255,255,0.9); }
 
-/* ABOUT */
-.sec { padding: 80px 5%; width: 100%; display: block; clear: both; }
+/* ── 공통 섹션 스타일 ── */
+.sec { padding: 100px 5%; width: 100%; display: block; clear: both; }
+.title { font-family:'Noto Serif KR'; font-size: 2.2rem; font-weight:900; margin-bottom:25px; line-height:1.3; }
+.label { color: var(--mg); font-weight: 800; letter-spacing: 3px; display: block; margin-bottom: 8px; font-size: 0.75rem; text-transform: uppercase; }
+
+/* ── 2. 소개 (ABOUT) ── */
+#about { background: #fff; border-bottom: 1px solid var(--line); }
 .about-wrap { display: flex; flex-direction: column; gap: 40px; }
 .about-img { width: 100%; max-width: 420px; margin: 0 auto; line-height: 0; }
-.about-img img { width: 100%; height: auto; display: block; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-
+.about-img img { width: 100%; height: auto; display: block; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
 .career-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
-.career-item { padding: 20px; background: #fff; border-radius: 12px; border: 1px solid var(--line); }
-.career-item b { font-size: 0.8rem; color: var(--mg); display: block; margin-bottom: 6px; letter-spacing:1px; }
-.career-item p { font-size: 1rem; font-weight: 700; color: var(--ink); }
+.career-item { padding: 18px; background: var(--bg); border-radius: 12px; border: 1px solid var(--line); }
+.career-item b { font-size: 0.8rem; color: var(--mg); display: block; margin-bottom: 6px; }
+.career-item p { font-size: 1rem; font-weight: 700; }
 
-/* SNS */
-.sns-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 25px; }
-.sns-link { display: flex; align-items: center; justify-content: center; padding: 15px; background: #fff; border-radius: 12px; border: 1px solid var(--line); text-decoration: none; font-size: 0.8rem; font-weight: 700; transition: 0.2s; color: var(--g2); }
-.sns-link:hover { border-color: var(--mg); color: var(--mg); }
-
-/* PLEDGE */
+/* ── 3. 공약 (PLEDGE) ── */
 #pledge { background: #f1f3f5; }
 .p-cat-title { font-family:'Noto Serif KR'; font-size: 1.6rem; color: var(--ink); border-left: 5px solid var(--mg); padding-left: 18px; margin: 45px 0 20px; }
 .p-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
@@ -51,17 +67,34 @@ nav { position: fixed; top:0; width:100%; height:64px; z-index:1000; display: fl
 .p-card h3 { font-size: 1.1rem; color: var(--mg); margin-bottom: 10px; font-weight: 800; }
 .p-card p { font-size: 0.9rem; color: #444; line-height: 1.5; }
 
-/* SUPPORT */
+/* ── 4. 활동사진 (GALLERY) ── */
+#gallery { background: #fff; }
+.g-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 20px; }
+.g-item { width: 100%; aspect-ratio: 1/1; background: #eee; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.g-item img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ── 5. SNS ── */
+#sns { background: #f8f9fa; text-align: center; }
+.sns-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 30px; }
+.sns-link { padding: 15px; background: #fff; border-radius: 12px; border: 1px solid var(--line); font-size: 0.85rem; font-weight: 700; color: var(--g2); }
+.sns-link:hover { border-color: var(--mg); color: var(--mg); }
+
+/* ── 6. 후원 (SUPPORT) ── */
 #support { background: var(--ink); color: #fff; text-align: center; padding: 100px 5%; }
 .acct-info { border: 2px solid var(--mg); padding: 45px 20px; border-radius: 24px; margin-top: 30px; background: rgba(255,0,110,0.08); }
 .acct-num { font-size: 2rem; font-weight: 800; letter-spacing: 1px; display: block; margin: 15px 0; word-break: break-all; color: #fff; }
 
 footer { padding: 50px 5%; text-align: center; background: #fff; font-size: 0.8rem; color: #999; border-top: 1px solid var(--line); }
 
+/* ── 반응형 (Tablet/Desktop) ── */
 @media (min-width: 768px) {
   .about-wrap { flex-direction: row; align-items: flex-start; }
-  .p-grid { grid-template-columns: repeat(2, 1fr); }
   .career-grid { grid-template-columns: 1fr 1fr; }
+  .p-grid { grid-template-columns: repeat(2, 1fr); }
+  .g-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (min-width: 1024px) {
+  .p-grid { grid-template-columns: repeat(3, 1fr); }
 }
 </style>
 </head>
@@ -69,92 +102,112 @@ footer { padding: 50px 5%; text-align: center; background: #fff; font-size: 0.8r
 
 <nav>
   <a href="#" class="n-logo">김영곤 <span>경남교육감 예비후보</span></a>
-  <a href="#support" class="n-btn-support">후원하기</a>
+  <a href="#support" style="background:var(--mg); color:#fff; padding:8px 18px; border-radius:50px; font-size:0.8rem; font-weight:700;">후원하기</a>
 </nav>
 
 <section id="hero">
-  <span class="h-label">경남교육감 예비후보</span> 
-  <h1 class="h-name">김영곤</h1>
-  <p class="h-slogan">"아이의 하루를 책임지는 <b>교육감</b>"<br>검증된 전문성으로 경남 교육의 품격을 높이겠습니다.</p>
+  <span class="h-label">경남교육감 예비후보</span>
+  <h1 class="h-name">김영<span>곤</span></h1>
+  <p class="h-slogan">"아이의 하루를 책임지겠습니다"</p>
 </section>
 
 <section id="about" class="sec">
   <div class="about-wrap">
-    <div class="about-img"><img src="yg.jpg" alt="김영곤 교육감 예비후보"></div>
+    <div class="about-img"><img src="yg.jpg" alt="김영곤 예비후보"></div>
     <div class="about-content">
-      <h2 style="font-family:'Noto Serif KR'; font-size: 2.2rem; margin-bottom: 25px; line-height: 1.3;">경남이 키운 교육 전문가<br><b>교육감</b> 예비후보 김영곤입니다.</h2>
+      <span class="label">PROFILE</span>
+      <h2 class="title">경남이 키운 교육 전문가<br>예비후보 김영곤입니다.</h2>
       <div class="career-grid">
-        <div class="career-item"><b>경남의 아들</b><p>경남 남해군 출신 (진주고 졸업)</p></div>
+        <div class="career-item"><b>뿌리 깊은 경남</b><p>경남 남해군 출신 (진주고 졸업)</p></div>
         <div class="career-item"><b>탄탄한 전문성</b><p>서울대 사범대 / 동국대 교육학 박사</p></div>
         <div class="career-item"><b>행정의 리더</b><p>행정고시 36회 / 전) 교육부 차관보</p></div>
         <div class="career-item"><b>글로벌 비전</b><p>OECD 교육국 정책분석가 (파리)</p></div>
         <div class="career-item"><b>검증된 실력</b><p>전) 국립국제교육원장</p></div>
         <div class="career-item"><b>교육 철학</b><p>『행복교육의 역설을 넘어』 저술</p></div>
       </div>
-      
-      <div class="sns-row">
-        <a href="https://www.facebook.com/younggonk6" target="_blank" class="sns-link">페이스북</a>
-        <a href="https://www.instagram.com/younggonk6" target="_blank" class="sns-link">인스타</a>
-        <a href="https://blog.naver.com/younggonk6" target="_blank" class="sns-link">블로그</a>
-        <a href="https://www.band.us/band/100335190" target="_blank" class="sns-link">밴드</a>
-      </div>
     </div>
   </div>
 </section>
 
 <section id="pledge" class="sec">
-  <h2 style="font-family:'Noto Serif KR'; font-size: 2.2rem; text-align: center; margin-bottom: 50px;">경남 교육을 위한 4대 핵심 비전</h2>
+  <span class="label">13 CORE PLEDGES</span>
+  <h2 class="title">아이의 하루를 책임지는 핵심 브랜드</h2>
   
   <div class="p-category">
-    <h3 class="p-cat-title">🛡️ [안전·건강] 빈틈없는 '밀착형 보호'</h3>
+    <h3 class="p-cat-title">🛡️ 빈틈없는 '밀착형 보호'</h3>
     <div class="p-grid">
-      <div class="p-card"><h3>세이프-존(Safe-Zone) 365</h3><p>통학로 전수 위험도 조사 및 안전 인프라 단계별 강화</p></div>
-      <div class="p-card"><h3>굿모닝 경남 아침 책임제</h3><p>아침밥 단계적 지원 확대 및 돌봄 프로그램 원스톱 연계</p></div>
-      <div class="p-card"><h3>세이프-홈(Safe-Home) 시스템</h3><p>하굣길 디지털 안심 그리드 및 안심귀가 도우미 배치</p></div>
-      <div class="p-card"><h3>급식·쉼터 공간 혁신</h3><p>로컬푸드 기반 테마 급식 및 카페형 복합 쉼터 조성</p></div>
+      <div class="p-card"><h3>세이프-존(Safe-Zone) 365</h3><p>통학로 전수 위험도 조사 및 안전 인프라 강화</p></div>
+      <div class="p-card"><h3>굿모닝 경남 아침 책임제</h3><p>결식 없는 아침밥 단계적 지원 및 돌봄 연계</p></div>
+      <div class="p-card"><h3>세이프-홈(Safe-Home) 귀가</h3><p>하굣길 디지털 안심 그리드 및 도우미 배치</p></div>
+      <div class="p-card"><h3>급식·쉼터 공간 혁신</h3><p>로컬푸드 테마 급식 및 카페형 복합 쉼터 조성</p></div>
     </div>
   </div>
 
   <div class="p-category">
-    <h3 class="p-cat-title">📚 [학력·성장] 성적을 넘어선 '책임 교육'</h3>
+    <h3 class="p-cat-title">📚 성적을 넘어선 '책임 교육'</h3>
     <div class="p-grid">
-      <div class="p-card"><h3>기초학력 결손 ZERO 프로젝트</h3><p>AI 학습 분석 Edu-Check 및 교육감 직속 튜터제</p></div>
+      <div class="p-card"><h3>기초학력 결손 ZERO 프로젝트</h3><p>AI 학습 분석 Edu-Check 도입 및 교육감 직속 튜터제</p></div>
       <div class="p-card"><h3>공교육 입시 책임 '에듀-네비'</h3><p>5대 권역 대입정보센터 상설화 및 진학 전문가 양성</p></div>
-      <div class="p-card"><h3>다독임(All-Care) 화해중재단</h3><p>교육감 직속 갈등조정관 파견 및 회복 중심 분쟁 해결</p></div>
+      <div class="p-card"><h3>학생 성장 피드백 시스템</h3><p>줄 세우기 대신 12년 배움의 흐름을 기록하는 성장 설계</p></div>
     </div>
   </div>
 
   <div class="p-category">
-    <h3 class="p-cat-title">🤖 [미래·글로벌] 세계를 선도하는 '창의 인재'</h3>
+    <h3 class="p-cat-title">🤖 세계를 선도하는 '창의 인재'</h3>
     <div class="p-grid">
       <div class="p-card"><h3>AI+Humanism 교육 전환</h3><p>'정답 없는 교실' 질문형 수업 모델 및 윤리 교육 의무화</p></div>
-      <div class="p-card"><h3>경남 AI 미래인재 교육원</h3><p>프로젝트형 교육 거점 구축 및 교사 디지털 마스터 양성</p></div>
-      <div class="p-card"><h3>과학고·국제고 설립 추진</h3><p>지역 특화 특목고 설립으로 우수 인재 지역 유출 방지</p></div>
+      <div class="p-card"><h3>경남 AI 미래인재 교육원</h3><p>실험 중심 AI 프로젝트 교육 및 교사 마스터 양성</p></div>
+      <div class="p-card"><h3>과학고·국제고 설립 추진</h3><p>지역 특화 특목고 설립으로 우수 인재 유출 방지</p></div>
       <div class="p-card"><h3>글로벌 브릿지 프로젝트</h3><p>이중언어 영재교육 상설화 및 글로벌 인턴십 매칭</p></div>
     </div>
   </div>
 
   <div class="p-category">
-    <h3 class="p-cat-title">🤝 [신뢰·현장] 학교를 살리는 '소통 행정'</h3>
+    <h3 class="p-cat-title">🤝 학교를 살리는 '소통 행정'</h3>
     <div class="p-grid">
       <div class="p-card"><h3>교사 존중·전문성 회복</h3><p>교권 신속 법률 대응단 신설 및 행정 업무 경감</p></div>
+      <div class="p-card"><h3>다독임(All-Care) 화해중재단</h3><p>교육감 직속 갈등조정 및 회복 중심 분쟁 해결</p></div>
       <div class="p-card"><h3>올인원 교육 클러스터</h3><p>초중고 12년 연계 교육과정 및 에듀-빌리지 조성</p></div>
     </div>
   </div>
 </section>
 
+<section id="gallery" class="sec">
+  <span class="label">FIELD ACTIVITIES</span>
+  <h2 class="title">현장에서 답을 찾는 행보</h2>
+  <div class="g-grid">
+    <div class="g-item"><img src="g1.jpg" alt="활동사진 1"></div>
+    <div class="g-item"><img src="g2.jpg" alt="활동사진 2"></div>
+    <div class="g-item"><img src="g3.jpg" alt="활동사진 3"></div>
+    <div class="g-item"><img src="g4.jpg" alt="활동사진 4"></div>
+  </div>
+</section>
+
+<section id="sns" class="sec">
+  <span class="label">COMMUNICATION</span>
+  <h2 class="title">소통하는 예비후보</h2>
+  <div class="sns-row">
+    <a href="https://www.facebook.com/younggonk6" target="_blank" class="sns-link">페이스북</a>
+    <a href="https://www.instagram.com/younggonk6" target="_blank" class="sns-link">인스타</a>
+    <a href="https://blog.naver.com/younggonk6" target="_blank" class="sns-link">블로그</a>
+    <a href="https://www.band.us/band/100335190" target="_blank" class="sns-link">밴드</a>
+  </div>
+</section>
+
 <section id="support" class="sec">
-  <h2 style="font-family:'Noto Serif KR'; font-size: 2.2rem; margin-bottom: 35px; color:#fff;">경남 교육의 미래를 후원해 주십시오</h2>
+  <span class="label" style="color:#fff;">SUPPORT</span>
+  <h2 class="title" style="color:#fff;">경남 교육의 미래를 후원해 주십시오</h2>
   <div class="acct-info">
     <b style="color:var(--mg); font-size:0.9rem; letter-spacing:2px; display:block;">농협은행 (예비후보자 후원회)</b>
     <span class="acct-num">301-0380-9752-51</span>
     <p style="opacity: 0.6; font-size: 0.85rem;">예금주: 경상남도교육감 예비후보자 김영곤 후원회</p>
   </div>
+  <p style="margin-top:30px; opacity:0.5; font-size:0.85rem;">본 사이트는 공직선거법을 준수합니다.</p>
 </section>
 
 <footer>
-  <div style="font-family:'Noto Serif KR'; font-weight:900; font-size:1.4rem; margin-bottom:15px; color:var(--ink);">김영곤</div>
-  <p>© 2026 CAMP YOUNG GON. ALL RIGHTS RESERVED.<br>본 사이트는 공직선거법을 준수합니다.</p>
+  <div style="font-family:'Noto Serif KR'; font-weight:900; font-size:1.3rem; margin-bottom:15px; color:var(--ink);">김영곤</div>
+  <p>© 2026 CAMP YOUNG GON. ALL RIGHTS RESERVED.</p>
 </footer>
 
 </body>
