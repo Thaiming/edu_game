@@ -306,12 +306,10 @@ h2.title.lt { color:#fff; }
 /* ★ 사진 자리 — 아래 .about-photo에 img 넣으면 됩니다 */
 .about-photo {
   position:sticky; top:84px;
-  background:var(--bg2); aspect-ratio:3/4;
+  background:var(--bg2);
+  aspect-ratio: 4/3;
   display:flex; align-items:center; justify-content:center;
-  position:sticky; top:84px;
   overflow:hidden;
-  /* 사진 교체 방법: 아래 .aph-inner를 지우고
-     <img src="사진.jpg" style="width:100%;height:100%;object-fit:cover;object-position:top;"> 로 교체 */
 }
 .aph-inner {
   display:flex; flex-direction:column; align-items:center; gap:10px;
@@ -752,7 +750,7 @@ footer {
     <!-- 사진 col -->
     <div>
       <div class="about-photo">
-        <img src="yg.png" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+        <img src="yg.png" style="width:100%;height:100%;object-fit:cover;object-position:center center;">
         <div class="photo-badge">
           <strong>김영곤</strong>
           <span>경남교육감 예비후보 · 전 교육부 차관보</span>
