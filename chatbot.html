@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>김영곤 AI 대변인</title>
+    <title>김영곤 경남교육감 예비후보 AI 대변인</title>
     
     <meta property="og:type" content="website">
     <meta property="og:title" content="김영곤 경남교육감 예비후보 AI 대변인">
@@ -17,74 +17,63 @@
         :root { --magenta: #e20074; --dark: #1a1a1a; --bg: #f5f7fa; }
         body { font-family: 'Pretendard', sans-serif; background: #edeff2; margin: 0; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
         #app { width: 100%; max-width: 480px; background: white; display: flex; flex-direction: column; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
-        
         #header { padding: 12px; border-bottom: 2px solid var(--magenta); background: white; text-align: center; z-index: 10; }
         #header h1 { margin: 0; font-size: 1.05rem; color: var(--dark); font-weight: 800; }
         #header p { margin: 2px 0 0; font-size: 0.75rem; color: var(--magenta); font-weight: 700; }
-
-        #chat-win { flex: 1; padding: 12px; overflow-y: auto; background: var(--bg); display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
-        
-        .promise-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; background: #fff; padding: 8px; border-radius: 12px; border: 1px solid #eee; margin-bottom: 5px; flex-shrink: 0; }
-        .p-btn { background: #fdfdfd; border: 1px solid #f0f0f0; border-radius: 8px; padding: 10px 2px; font-size: 0.65rem; font-weight: 700; color: #333; cursor: pointer; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        #chat-win { flex: 1; padding: 10px; overflow-y: auto; background: var(--bg); display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
+        .promise-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; background: #fff; padding: 8px; border-radius: 12px; border: 1px solid #eee; margin-bottom: 5px; flex-shrink: 0; }
+        .p-btn { background: #fdfdfd; border: 1px solid #f0f0f0; border-radius: 8px; padding: 10px 1px; font-size: 0.62rem; font-weight: 700; color: #333; cursor: pointer; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 3px; }
         .p-btn:active { background: var(--magenta); color: white; transform: scale(0.92); }
-        .p-btn span { font-size: 1.1rem; }
-
-        .msg { max-width: 90%; animation: slideUp 0.3s ease; }
-        .bot-card { background: white; padding: 14px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid #eee; align-self: flex-start; }
-        .user-msg { align-self: flex-end; background: var(--dark); color: white; padding: 10px 14px; border-radius: 16px 16px 2px 16px; font-size: 0.88rem; }
-        
-        .p-title { font-weight: 700; color: var(--magenta); display: block; margin-bottom: 4px; font-size: 0.95rem; }
-        .p-text { font-size: 0.88rem; line-height: 1.5; color: #333; word-break: keep-all; }
-        .p-list { margin: 6px 0 0; padding: 0; list-style: none; font-size: 0.82rem; color: #666; }
-        .p-list li { margin-bottom: 3px; position: relative; padding-left: 10px; }
-        .p-list li::before { content: '•'; position: absolute; left: 0; color: var(--magenta); }
-
-        #bottom-section { background: white; border-top: 1px solid #eee; padding: 12px; }
+        .p-btn span { font-size: 1rem; }
+        .bot-card { background: white; padding: 15px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid #eee; align-self: flex-start; max-width: 92%; }
+        .user-msg { align-self: flex-end; background: var(--dark); color: white; padding: 10px 14px; border-radius: 16px 16px 2px 16px; font-size: 0.88rem; max-width: 90%; }
+        .p-quote { display: block; background: #fff5f9; border-left: 3px solid var(--magenta); padding: 8px 12px; margin-bottom: 10px; font-size: 0.8rem; color: #555; line-height: 1.5; font-style: italic; }
+        .p-title { font-weight: 700; color: var(--magenta); display: block; margin-bottom: 6px; font-size: 0.95rem; }
+        .p-text { font-size: 0.85rem; line-height: 1.6; color: #333; word-break: keep-all; margin-bottom: 12px; }
+        .p-list { margin: 0; padding: 0; list-style: none; font-size: 0.8rem; color: #444; background: #f9f9f9; padding: 10px; border-radius: 10px; border: 1px solid #f0f0f0; }
+        .p-list li { margin-bottom: 4px; position: relative; padding-left: 14px; font-weight: 600; }
+        .p-list li::before { content: '✓'; position: absolute; left: 0; color: var(--magenta); }
+        #bottom-section { background: white; border-top: 1px solid #eee; padding: 10px; }
         .input-row { display: flex; gap: 6px; }
         input { flex: 1; padding: 11px 18px; border: 1px solid #ddd; border-radius: 25px; outline: none; font-size: 0.95rem; background: #f9f9f9; }
-        #send-btn { background: var(--magenta); color: white; border: none; padding: 0 16px; border-radius: 25px; cursor: pointer; font-weight: 700; font-size: 0.9rem; }
-
-        @keyframes slideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        #send-btn { background: var(--magenta); color: white; border: none; padding: 0 16px; border-radius: 25px; cursor: pointer; font-weight: 700; }
     </style>
 </head>
 <body>
 <div id="app">
     <div id="header">
         <h1>김영곤 경남교육감 예비후보 AI 대변인</h1>
-        <p>전 교육부 차관보 김영곤의 17가지 약속</p>
+        <p>교육부 차관보 출신 김영곤의 17가지 약속</p>
     </div>
-    
     <div id="chat-win">
-        <div class="msg bot-card" style="max-width: 100%; font-size: 0.85rem;">
-            <b>"학부모와 교사가 묻고, 김영곤이 약속합니다"</b><br>
-            궁금한 키워드(학력, 입시, 학폭 등)를 입력해보세요.
+        <div class="bot-card" style="max-width: 100%;">
+            반갑습니다! 😊 <b>김영곤 경남교육감 예비후보 AI 대변인</b>입니다.<br><br>
+            교육부 차관보와 국립국제교육원장으로서 대한민국 교육의 큰 틀을 설계해 왔습니다. 경남 아이들의 24시간을 책임질 정교한 약속들을 확인해보세요!
         </div>
-        
         <div class="promise-board">
-            <div class="p-btn" onclick="handleTag('학력결손')"><span>📖</span>학력결손</div>
-            <div class="p-btn" onclick="handleTag('대입정보')"><span>📍</span>입시네비</div>
             <div class="p-btn" onclick="handleTag('아침밥')"><span>🍱</span>아침밥</div>
+            <div class="p-btn" onclick="handleTag('학력결손')"><span>📖</span>학력결손</div>
             <div class="p-btn" onclick="handleTag('AI비전')"><span>💡</span>AI비전</div>
+            <div class="p-btn" onclick="handleTag('인재교육')"><span>🏫</span>인재교육</div>
             <div class="p-btn" onclick="handleTag('인문교육')"><span>🧠</span>인문교육</div>
-            <div class="p-btn" onclick="handleTag('다문화')"><span>🌏</span>글로벌</div>
+            <div class="p-btn" onclick="handleTag('글로벌')"><span>🌏</span>글로벌</div>
             <div class="p-btn" onclick="handleTag('급식카페')"><span>☕</span>급식카페</div>
-            <div class="p-btn" onclick="handleTag('갈등중재')"><span>🤝</span>학교폭력</div>
-            <div class="p-btn" onclick="handleTag('입시배달')"><span>🚑</span>진학119</div>
+            <div class="p-btn" onclick="handleTag('갈등중재')"><span>🤝</span>갈등중재</div>
+            <div class="p-btn" onclick="handleTag('입시네비')"><span>📍</span>입시네비</div>
+            <div class="p-btn" onclick="handleTag('진학119')"><span>🚑</span>진학119</div>
             <div class="p-btn" onclick="handleTag('할매돌봄')"><span>👵</span>할매돌봄</div>
             <div class="p-btn" onclick="handleTag('하교안전')"><span>🏠</span>하교안전</div>
-            <div class="p-btn" onclick="handleTag('선생님')"><span>👩‍🏫</span>교권보호</div>
-            <div class="p-btn" onclick="handleTag('지역상생')"><span>🏢</span>지역학교</div>
-            <div class="p-btn" onclick="handleTag('인재교육')"><span>🏫</span>인재교육</div>
+            <div class="p-btn" onclick="handleTag('교사연수')"><span>✈️</span>교사연수</div>
+            <div class="p-btn" onclick="handleTag('교권보호')"><span>👩‍🏫</span>교권보호</div>
+            <div class="p-btn" onclick="handleTag('마음치유')"><span>🧘</span>교사치유</div>
+            <div class="p-btn" onclick="handleTag('지역상생')"><span>🏢</span>지역상생</div>
             <div class="p-btn" onclick="handleTag('디지털쉼')"><span>📱</span>디지털쉼</div>
-            <div class="p-btn" onclick="handleTag('교사치유')"><span>🧘</span>교사치유</div>
         </div>
-        
         <div id="chat-content" style="display: flex; flex-direction: column; gap: 12px; padding-bottom: 20px;"></div>
     </div>
-
     <div id="bottom-section">
         <div class="input-row">
-            <input type="text" id="userInput" placeholder="궁금한 키워드 입력...">
+            <input type="text" id="userInput" placeholder="학력, 체육, 입시, 학폭 등 입력...">
             <button id="send-btn" onclick="send()">전송</button>
         </div>
     </div>
@@ -93,55 +82,74 @@
 <script>
     const db = [
         { 
-            keys: ['학력', '공부', '성적', '기초', '학습', '포기자', '수포자', '결손', '진단', '에듀체크'], 
-            title: "기초 학력 결손 Zero! AI 맞춤형 튜터링", 
-            text: "공부할 수 있는 기초 체력은 교육청이 만듭니다. 경제력이 아이의 실력이 되지 않도록 공교육의 사다리를 확실히 세우겠습니다.", 
-            list: ["경남형 AI 학습 분석 플랫폼 '에듀-체크' 도입", "교육감 직속 '기초학력 1:1 전담 튜터제' 운영", "질문이 살아나는 'AI 보조교사' 활용 수업"] 
-        },
-        { 
-            keys: ['입시', '대학', '대입', '네비', '정보', '격차', '사교육비', '진학'], 
-            title: "경남 에듀-네비(Edu-Navi) 입시 책임제", 
-            text: "부모님의 정보력이 아이의 대학을 결정하는 불공정, 이제 경남에서 끝내겠습니다. 거창 산골 아이도 똑같은 고급 정보를 누려야 합니다.", 
-            list: ["5대 권역별 '거점 대입정보센터' 상설화", "경남형 1타 진학 전문가 1,000명 양성", "실시간 데이터 기반 'AI 에듀-네비' 구축"] 
-        },
-        { 
-            keys: ['아침', '밥', '온케어', '식단', '식사', '로컬푸드'], 
+            keys: ['아침밥', '아침', '밥', '온케어', '식단', '등교', '체육', '운동', '스포츠', '축구', '야구', '달리기', '몸놀림', '건강', '활력'], 
+            quote: "학부모: 아침 8시, 사실 아이들 깨워서 학교 보내는 것부터가 고비거든요. 밥도 못 먹고 뛰어나가는 애들이 태반인데?",
             title: "아침 든든, 경남형 온(溫)케어", 
-            text: "편의점 차가운 의자가 아닌 학교의 따뜻한 식탁에서 하루를 시작하게 하겠습니다. 행정의 달인 김영곤이 아침 풍경을 바꿉니다.", 
-            list: ["경남 로컬푸드 굿모닝 식탁 운영", "아침 깨움, 신나는 몸놀림 프로그램"] 
+            text: "부모님의 아침 1시간을 여유로, 아이의 아침을 활력으로 채우겠습니다. 편의점의 차가운 의자가 아니라 학교의 따뜻한 식탁에서 하루를 시작하게 하겠습니다.", 
+            list: ["경남 로컬푸드 굿모닝 식탁 운영", "아침 깨움, 신나는 몸놀림 프로그램", "행정 전문가 김영곤이 풍경을 바꿉니다!"] 
         },
         { 
-            keys: ['학폭', '학교폭력', '갈등', '화해', '중재', '폭력', '다독임'], 
+            keys: ['학력', '성적', '공부', '기초', '결손', '포기자', '수포자', '영포자', '실력', '사다리', '진단', '에듀체크', '튜터'], 
+            quote: "학부모: 수업 시간에 멍하니 앉아 있는 아이들, 이른바 '포기자'들이 생기는 게 큰 문제입니다. 기초 학력은 어떻게 잡으실 건가요?",
+            title: "기초 학력 결손 Zero! AI 맞춤형 튜터링", 
+            text: "부모의 정보력이나 경제력이 아이의 실력이 되지 않도록 공교육의 힘으로 학력의 사다리를 확실히 세우겠습니다. 기초 체력은 교육청이 만듭니다.", 
+            list: ["AI 학습 분석 플랫폼 '에듀-체크'", "교육감 직속 '1:1 전담 튜터제'", "질문이 살아나는 AI 보조교사 수업"] 
+        },
+        { 
+            keys: ['학폭', '학교폭력', '폭력', '왕따', '갈등', '화해', '중재', '다독임', '조정', '플랫폼', '싸움', '소송'], 
+            quote: "학부모: 아이들끼리 갈등이 소송으로 번지고 학교가 법정이 되는 현실이 무서워요. 소통의 벽, 어떻게 허무시겠습니까?",
             title: "다독임(All-Care) 화해중재단", 
-            text: "갈등이 소송으로 번지기 전, 교육감 직속 조정관을 파견해 소통의 벽을 허물겠습니다. 학교를 회복의 공간으로 돌려놓겠습니다.", 
+            text: "교육감 직속 조정관을 파견해 끊어진 대화의 다리를 놓겠습니다. 학교 담장 뒤에 숨지 않겠습니다. 학교를 방어의 공간이 아닌 회복의 공간으로 만듭니다.", 
             list: ["교육감 직속 갈등조정관 파견", "서로존중 화해중재단 운영", "디지털 소통 플랫폼 설치"] 
         },
         { 
-            keys: ['하교', '안전', '귀가', '사고', '불안', '맞벌이'], 
+            keys: ['입시', '대학', '대입', '네비', '정보', '격차', '사교육', '사교육비', '진학', '전문가', '1타'], 
+            quote: "학부모: 입시 정보력 싸움이다라는 말처럼 경제력에 따른 격차가 심각합니다. 정보 때문에 손해 보는 일 막아주세요.",
+            title: "경남 에듀-네비(Edu-Navi) 입시 책임제", 
+            text: "부모님의 정보력이 대학을 결정하는 불공정, 이제 끝내겠습니다. 거창 산골 아이도 똑같은 고급 정보를 누려야 합니다. 입시 맥을 짚어드리겠습니다.", 
+            list: ["5대 권역별 '거점 대입정보센터' 상설화", "경남형 1타 진학 전문가 1,000명 양성", "AI 에듀-네비 플랫폼 구축"] 
+        },
+        { 
+            keys: ['안전', '귀가', '하교', '사고', '불안', '맞벌이', '도우미', '집', '현관', '방패'], 
+            quote: "학부모: 하굣길 사고 소식에 가슴이 철렁합니다. 아이가 집에 잘 도착했는지 확인 전까지 일이 손에 안 잡혀요.",
             title: "Safe-Home 안심 귀가 시스템", 
-            text: "학교 문을 나설 때부터 집 현관문 손잡이를 잡을 때까지 교육청의 보호 아래 있게 하겠습니다. 디지털 방패로 안전을 책임집니다.", 
-            list: ["스마트 안심 그리드(Grid) 구축", "안심 귀가 도우미 전면 배치"] 
+            text: "학교 문을 나서는 순간부터 집 현관문 손잡이를 잡는 순간까지 교육청의 보호 아래 있게 하겠습니다. 디지털 방패로 철저히 지키겠습니다.", 
+            list: ["스마트 안심 그리드(Grid) 구축", "안전 '디지털 방패' 시스템 마련", "안심 귀가 도우미 전면 배치"] 
         },
         { 
-            keys: ['선생님', '교권', '보호', '리스펙트', '자긍심', '업무'], 
+            keys: ['교권', '보호', '리스펙트', '자긍심', '선생님', '민원', '자괴감', '눈물', '법률'], 
+            quote: "교사: 교권 추락으로 인해 현장 선생님들의 자괴감이 극에 달해 있습니다. 이 눈물 어떻게 닦아주시겠습니까?",
             title: "교사 자긍심 회복, 리스펙트 365", 
-            text: "선생님이 눈물을 흘리면 그 눈물은 아이들의 미래로 돌아갑니다. 시스템으로 교권을 보호하고 가르치는 보람을 되찾아드리겠습니다.", 
-            list: ["교권신속법률대응단 가동", "학교 업무 제로화 추진", "교원 마음치유 지원 센터 확대"] 
+            text: "선생님이 눈물을 흘리면 아이들의 미래로 돌아갑니다. 선언이 아닌 시스템으로 교권을 보호하겠습니다. 교사가 불안한 교실에선 제대로 배울 수 없습니다.", 
+            list: ["교권신속법률대응단 직속 가동", "학교 업무 제로화 추진", "교원 마음치유 지원 센터 확대"] 
         },
         { 
-            keys: ['스마트폰', '디지털', '핸드폰', '게임', '중독', '쉼'], 
+            keys: ['돌봄', '어르신', '할매', '할배', '할머니', '할아버지', '농어촌', '일자리'], 
+            quote: "학부모: 학교 돌봄교실에 지역 어르신들을 모시겠다는 파격적인 제안, 안전 문제는 없을까요?",
+            title: "온(溫)마을 할매·할배 돌봄교실", 
+            text: "어르신들의 손마디에는 삶의 지혜와 무조건적인 사랑이 담겨 있습니다. 아이들에게는 온기를, 어르신들께는 웃음을 보약으로 드리겠습니다.", 
+            list: ["세대 공감 '내리사랑' 프로그램", "시니어 안전 돌보미 양성", "지속 가능한 어르신 일자리 연계"] 
+        },
+        { 
+            keys: ['스마트폰', '디지털', '핸드폰', '게임', '중독', '쉼', '대화', '사유', '밤'], 
+            quote: "학부모: 아이들이 학교나 집에서 스마트폰을 손에서 놓지 않아요. 디지털의 늪에서 구할 방안이 있나요?",
             title: "디지털-쉼(Rest) 캠페인", 
-            text: "아이의 밤을 바꾸지 않으면 교실은 바뀌지 않습니다. 강제가 아닌 소통으로 디지털의 노예가 아닌 주인이 되도록 이끌겠습니다.", 
-            list: ["생활 리듬 회복 '청정학교' 운영", "밤이 있는 삶, 스마트폰 사용 절제 캠페인"] 
+            text: "아이의 밤을 바꾸지 않으면 교실은 바뀌지 않습니다. 학교 담장 안만큼은 온전한 사유와 대화의 공간으로 되돌려 놓겠습니다. 강제가 아닌 소통으로 이끕니다.", 
+            list: ["생활 리듬 회복 '청정학교' 운영", "핵심 학습 시간 보호 모델 확산", "밤이 있는 삶 절제 캠페인"] 
+        },
+        { 
+            keys: ['인문학', '르네상스', '철학', '예술', '질문', '근육', '창의', '천재', '정답'], 
+            quote: "학부모: AI가 다 해주는 시대에 고리타분하게 인문학을 배우고 생각하는 훈련이 왜 필요한가요?",
+            title: "경남 르네상스(Renaissance) AI 교육", 
+            text: "정답을 외우는 건 AI가 더 잘합니다. 저는 아이들에게 질문하는 힘과 생각하는 근육을 길러주겠습니다. 기술에 휘둘리지 않는 따뜻한 천재를 키웁니다.", 
+            list: ["프롬프트 인문학 교실 운영", "AI 답을 검증하는 디지털 철학 수업", "경남 에듀-아트(Art) 프로젝트"] 
         }
     ];
 
     const chatContent = document.getElementById('chat-content');
     const win = document.getElementById('chat-win');
     const input = document.getElementById('userInput');
-
     function handleTag(t) { input.value = t; send(); }
-
     function send() {
         const t = input.value.trim(); if(!t) return;
         chatContent.innerHTML += `<div class="msg user-msg">${t}</div>`;
@@ -149,15 +157,15 @@
         setTimeout(() => {
             let f = db.find(i => i.keys.some(k => t.toLowerCase().includes(k)));
             if(f) {
-                let listHtml = f.list.map(li => `<li>${li}</li>`).join('');
                 chatContent.innerHTML += `
-                    <div class="msg bot-card">
+                    <div class="bot-card">
+                        <span class="p-quote">${f.quote}</span>
                         <span class="p-title">${f.title}</span>
                         <span class="p-text">${f.text}</span>
-                        <ul class="p-list">${listHtml}</ul>
+                        <ul class="p-list">${f.list.map(li => `<li>${li}</li>`).join('')}</ul>
                     </div>`;
             } else {
-                chatContent.innerHTML += `<div class="msg bot-card">죄송합니다. <b>'${t}'</b> 키워드는 준비 중입니다. 버튼을 누르거나 '학력', '입시', '학폭' 등을 입력해보세요.</div>`;
+                chatContent.innerHTML += `<div class="bot-card">죄송합니다. <b>'${t}'</b>에 대한 상세 약속을 준비 중입니다. 버튼을 누르거나 '학력', '입시', '체육', '학폭' 등을 입력해 보세요!</div>`;
             }
             win.scrollTo({ top: win.scrollHeight, behavior: 'smooth' });
         }, 300);
