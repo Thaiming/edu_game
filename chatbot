@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>김영곤 경남교육감 예비후보 AI 대변인</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --p: #0052cc; --bg: #f5f7f9; --white: #ffffff; --bot-msg: #f0f4ff; }
+        body { font-family: 'Pretendard', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
+        #app { width: 100%; max-width: 480px; background: white; display: flex; flex-direction: column; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        #header { padding: 20px; border-bottom: 1px solid #eee; background: white; text-align: center; }
+        #header h1 { margin: 0; font-size: 1.2rem; color: var(--p); font-weight: 800; }
+        #header p { margin: 4px 0 0; font-size: 0.85rem; color: #666; }
+        #chat-win { flex: 1; padding: 15px; overflow-y: auto; background: #f9fbff; display: flex; flex-direction: column; gap: 15px; }
+        .msg { max-width: 85%; animation: slideUp 0.3s ease; display: flex; flex-direction: column; }
+        .bot-card { background: white; padding: 18px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 6px solid var(--p); align-self: flex-start; }
+        .user-msg { align-self: flex-end; background: var(--p); color: white; padding: 12px 18px; border-radius: 20px 20px 2px 20px; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0,82,204,0.2); }
+        .p-title { font-weight: 700; color: var(--p); display: block; margin-bottom: 8px; font-size: 1.05rem; }
+        .p-text { font-size: 0.95rem; line-height: 1.7; color: #333; }
+        .p-list { margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ddd; font-size: 0.88rem; color: #666; }
+        #input-area { padding: 15px; background: white; border-top: 1px solid #eee; display: flex; flex-direction: column; gap: 10px; }
+        .input-row { display: flex; gap: 8px; }
+        input { flex: 1; padding: 14px 18px; border: 1px solid #ddd; border-radius: 30px; outline: none; font-size: 0.95rem; transition: 0.2s; }
+        input:focus { border-color: var(--p); box-shadow: 0 0 0 3px rgba(0,82,204,0.1); }
+        #send-btn { background: var(--p); color: white; border: none; padding: 0 25px; border-radius: 30px; cursor: pointer; font-weight: 600; font-size: 0.95rem; }
+        .tags { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+        .tag { white-space: nowrap; padding: 8px 14px; background: #f0f4ff; color: var(--p); border-radius: 18px; font-size: 0.8rem; cursor: pointer; border: 1px solid #dce7f9; font-weight: 600; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="header">
+        <h1>김영곤 경남교육감 예비후보 AI 대변인</h1>
+        <p>경남 교육의 따뜻한 변화를 약속합니다</p>
+    </div>
+    <div id="chat-win" id="chatWin">
+        <div class="msg bot-card">
+            반갑습니다! <b>김영곤 경남교육감 예비후보</b>의 정책을 안내해 드리는 AI 대변인입니다. 😊<br><br>
+            학부모님과 교사분들의 목소리에 귀 기울이며 준비한 후보님의 진심 어린 약속들, 무엇이든 물어봐 주세요!
+        </div>
+    </div>
+    <div id="input-area">
+        <div class="tags">
+            <div class="tag" onclick="handleTag('아침밥 지원 정책')">🍱 따뜻한 아침밥</div>
+            <div class="tag" onclick="handleTag('입시 네비게이션')">📍 입시 걱정 해결</div>
+            <div class="tag" onclick="handleTag('화해중재단')">🤝 갈등 회복 중재</div>
+            <div class="tag" onclick="handleTag('안전한 등하교')">🏠 안심 귀가</div>
+        </div>
+        <div class="input-row">
+            <input type="text" id="userInput" placeholder="궁금하신 내용을 다정하게 물어봐 주세요..." onkeypress="if(event.keyCode==13) send()">
+            <button id="send-btn" onclick="send()">보내기</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const db = [
+        { keys: ['아침', '밥', '식사', '케어', '굿모닝'], title: "🍱 아침 든든, 경남형 온(溫)케어", main: "학부모님의 아침 1시간을 여유로, 우리 아이의 아침을 활기찬 에너지로 가득 채워드릴게요! [cite: 1, 2]", sub: "• 경남 로컬푸드 굿모닝 식탁 운영 [cite: 3]<br>• 아침 깨움, 신나는 몸놀림 프로그램 지원 [cite: 3]" },
+        { keys: ['학습', '결손', '기초', '튜터', '공부'], title: "✏️ AI 맞춤형 튜터링", main: "아이별 맞춤 학습을 지원하여 단 한 명의 아이도 학습에서 소외되지 않도록 꼼꼼히 살피겠습니다. [cite: 4]", sub: "• AI 학습 플랫폼 '에듀-체크'로 정밀 진단 [cite: 4]<br>• 교육감 직속 1:1 전담 튜터제 도입 [cite: 4]" },
+        { keys: ['입시', '정보', '대학', '네비', '진학'], title: "📍 경남 에듀-네비 (입시 책임제)", main: "부모님의 정보력이 아이의 대학을 결정하지 않도록, 공교육이 입시의 튼튼한 길잡이가 되어드릴게요. [cite: 27, 29]", sub: "• 5대 권역 거점 대입정보센터 상설 운영 [cite: 29]<br>• 찾아가는 진학 119 셔틀 상담소 운영 [cite: 32]" },
+        { keys: ['교사', '교권', '리스펙트', '자긍심'], title: "👩‍🏫 경남 리스펙트(Respect) 365", main: "선생님의 자긍심을 지키는 것이 곧 우리 아이들의 행복한 교실을 만드는 첫걸음입니다. [cite: 45, 46]", sub: "• 교육감 직속 교권신속법률대응단 가동 [cite: 46]<br>• 학교 행정 업무 제로화 추진 [cite: 46]" },
+        { keys: ['폭력', '학폭', '갈등', '중재', '다독임'], title: "🤝 다독임(All-Care) 화해중재단", main: "갈등이 깊어지기 전, 교육감 직속 조정관이 따뜻한 소통의 다리를 놓아 회복을 돕겠습니다. [cite: 23, 25]", sub: "• 교육감 직속 갈등조정관 파견 [cite: 26]<br>• 디지털 소통 플랫폼 설치 운영 [cite: 26]" },
+        { keys: ['귀가', '하교', '안전', '사각지대'], title: "🏠 Safe-Home 안심 귀가", main: "아이들이 학교 문을 나서는 순간부터 집 현관문에 도착할 때까지 교육청이 든든하게 보호하겠습니다. [cite: 36, 37]", sub: "• 스마트 안심 그리드(Grid) 구축 [cite: 38]<br>• 사람이 지키는 안심 귀가 도우미 전면 배치 [cite: 38]" }
+    ];
+
+    const win = document.getElementById('chat-win');
+    const input = document.getElementById('userInput');
+
+    function handleTag(txt) { input.value = txt; send(); }
+    function send() {
+        const txt = input.value.trim();
+        if(!txt) return;
+        addMsg(txt, 'user');
+        input.value = '';
+        setTimeout(() => {
+            let found = db.find(item => item.keys.some(k => txt.includes(k)));
+            if(found) addBotCard(found);
+            else addMsg("정말 죄송해요. 말씀하신 내용에 대한 구체적인 약속을 찾지 못했어요. '아침밥', '입시', '교권' 같은 단어로 다시 물어봐 주시면 정성껏 답변해 드릴게요! 😊", 'bot-card');
+        }, 400);
+    }
+    function addMsg(t, type) {
+        const d = document.createElement('div'); d.className = `msg ${type}`; d.innerText = t;
+        win.appendChild(d); win.scrollTop = win.scrollHeight;
+    }
+    function addBotCard(i) {
+        const d = document.createElement('div'); d.className = 'msg bot-card';
+        d.innerHTML = `<span class="p-title">${i.title}</span><span class="p-text">${i.main}</span><div class="p-list"><b>[세부 실천 약속]</b>${i.sub}</div>`;
+        win.appendChild(d); win.scrollTop = win.scrollHeight;
+    }
+</script>
+</body>
+</html>
