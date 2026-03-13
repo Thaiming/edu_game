@@ -8,7 +8,8 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="김영곤 경남교육감 예비후보 AI 대변인">
     <meta property="og:description" content="아이의 하루를 책임지는 김영곤의 17가지 약속">
-    <meta property="og:image" content="character.png"> 
+    <meta property="og:image" content="character.png"> <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
 
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -66,7 +67,6 @@
 </div>
 
 <script>
-    // 17가지 공약 데이터베이스 (모든 출처 숫자 제거 완료)
     const db = [
         { keys: ['아침', '밥', '온케어', '식사'], img: 'card01.jpg', title: "경남형 온(溫)케어 (08:00)", text: "부모님의 아침 1시간을 여유로, 아이의 아침을 활력으로 채우겠습니다." },
         { keys: ['튜터', '기초', '학습', '결손'], img: 'card02.jpg', title: "AI 맞춤형 튜터링 (09:00)", text: "기초 학력 결손 0%를 위한 정밀한 학습 진단을 실현합니다." },
@@ -103,7 +103,7 @@
                         <span class="p-text">${f.text}</span>
                     </div>`;
             } else {
-                win.innerHTML += `<div class="msg bot-card">죄송합니다. 현재는 준비된 17가지 핵심 공약에 대해서만 정확한 안내가 가능합니다. 😊 <b>아침밥, 입시, 돌봄</b> 등의 단어를 입력해 보세요.</div>`;
+                win.innerHTML += `<div class="msg bot-card">죄송합니다. 현재는 준비된 공약에 대해서만 정확한 안내가 가능합니다. 😊 <b>아침밥, 입시, 돌봄</b> 등의 단어를 입력해 보세요.</div>`;
             }
             win.scrollTop = win.scrollHeight;
         }, 350);
