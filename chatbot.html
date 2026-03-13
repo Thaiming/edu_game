@@ -3,43 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>김영곤 경남교육감 예비후보 AI 대변인</title>
+    <title>김영곤 AI 대변인</title>
     
     <meta property="og:type" content="website">
     <meta property="og:title" content="김영곤 경남교육감 예비후보 AI 대변인">
     <meta property="og:description" content="아이의 하루를 책임지는 김영곤의 17가지 약속">
-    <meta property="og:image" content="character.png"> <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta property="og:image" content="character.png"> 
+
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { --magenta: #e20074; --dark: #1a1a1a; --bg: #f9f9fb; }
         body { font-family: 'Pretendard', sans-serif; background: #edeff2; margin: 0; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
         #app { width: 100%; max-width: 480px; background: white; display: flex; flex-direction: column; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
-        
-        /* 헤더 디자인 */
         #header { padding: 20px; border-bottom: 2px solid var(--magenta); background: white; text-align: center; }
         #header h1 { margin: 0; font-size: 1.15rem; color: var(--dark); font-weight: 800; }
         #header p { margin: 5px 0 0; font-size: 0.85rem; color: var(--magenta); font-weight: 700; }
-
-        /* 채팅창 영역 */
         #chat-win { flex: 1; padding: 15px; overflow-y: auto; background: var(--bg); display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; }
         .msg { max-width: 90%; animation: slideUp 0.3s ease; }
         .bot-card { background: white; padding: 18px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eee; align-self: flex-start; }
         .user-msg { align-self: flex-end; background: var(--dark); color: white; padding: 12px 18px; border-radius: 20px 20px 2px 20px; font-size: 0.95rem; }
-        
-        /* 공약 카드 이미지 및 텍스트 */
         .p-img { width: 100%; border-radius: 12px; margin-bottom: 12px; display: block; border: 1px solid #f0f0f0; }
         .p-title { font-weight: 700; color: var(--magenta); display: block; margin-bottom: 8px; font-size: 1.05rem; }
         .p-text { font-size: 0.92rem; line-height: 1.6; color: #333; word-break: keep-all; }
-
-        /* 하단 입력 및 추천 태그 */
         #bottom-section { background: white; border-top: 1px solid #eee; padding: 15px; }
         .tags { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; }
         .tags::-webkit-scrollbar { display: none; }
         .tag { white-space: nowrap; padding: 9px 16px; background: white; color: var(--magenta); border-radius: 50px; font-size: 0.82rem; cursor: pointer; border: 1.5px solid var(--magenta); font-weight: 600; flex-shrink: 0; }
-        
         .input-row { display: flex; gap: 8px; }
         input { flex: 1; padding: 14px 20px; border: 1px solid #ddd; border-radius: 30px; outline: none; font-size: 1rem; }
         #send-btn { background: var(--magenta); color: white; border: none; padding: 0 22px; border-radius: 30px; cursor: pointer; font-weight: 700; }
-        
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -52,9 +44,9 @@
     
     <div id="chat-win" id="chatWin">
         <div class="msg bot-card">
-            반갑습니다! 😊 <b>김영곤 후보의 AI 대변인</b>입니다.<br><br>
-            행정 전문가 김영곤이 설계한 <b>경남 교육의 17가지 핵심 약속</b>을 안내해 드립니다. [cite: 1-52]<br><br>
-            아래 주요 정책을 클릭하시거나, 대화창에 <b>키워드(아침밥, 입시, 급식 등)</b>를 입력하시면 준비된 상세 공약 카드를 즉시 찾아드립니다. [cite: 1-52]
+            반갑습니다! 😊 <b>전 교육부 차관보 김영곤</b>입니다.<br><br>
+            대한민국 교육 정책의 핵심을 설계해 온 경험을 바탕으로, <b>경남 아이들의 하루 24시간</b>을 책임질 정교한 약속들을 정리했습니다.<br><br>
+            아래 주요 정책을 선택하시거나, 대화창에 <b>궁금한 키워드(아침밥, 입시, 급식 등)</b>를 입력하시면 준비된 상세 공약 카드를 즉시 찾아드립니다.
         </div>
     </div>
 
@@ -74,22 +66,22 @@
 </div>
 
 <script>
-    // 17가지 공약 데이터베이스 (출처 숫자 제거 및 정제 완료)
+    // 17가지 공약 데이터베이스 (모든 출처 숫자 제거 완료)
     const db = [
-        { keys: ['아침', '밥', '온케어', '식사'], img: 'card01.jpg', title: "경남형 온(溫)케어 (08:00)", text: "부모님의 아침 1시간을 여유로, 아이의 아침을 활력으로 채우겠습니다. [cite: 1, 2]" },
-        { keys: ['튜터', '기초', '학습', '결손'], img: 'card02.jpg', title: "AI 맞춤형 튜터링 (09:00)", text: "기초 학력 결손 0%를 위한 정밀한 학습 진단을 실현합니다. [cite: 4]" },
-        { keys: ['인공지능', '인성', '기술'], img: 'card03.jpg', title: "경남 AI+H 프로젝트 (09:30)", text: "기술에 매몰되지 않는 인성 중심 첨단 교육장을 조성합니다. [cite: 5, 6]" },
-        { keys: ['인재', '교육원', '올트먼'], img: 'card04.jpg', title: "AI 인재교육원 설립 (10:00)", text: "유능한 선생님과 최고의 시설이 있는 경남을 만듭니다. [cite: 10, 11]" },
-        { keys: ['르네상스', '질문', '인문학'], img: 'card05.jpg', title: "경남 르네상스 AI 교육 (10:30)", text: "질문하는 힘과 생각하는 근육을 길러주는 교실을 운영합니다. [cite: 12, 16]" },
-        { keys: ['글로벌', '브릿지', '다문화'], img: 'card06.jpg', title: "경남 글로벌 브릿지 (11:00)", text: "이주배경 학생을 글로벌 인재로 키우는 영재교육을 실시합니다. [cite: 17, 20]" },
-        { keys: ['급식', '점심', '쉼터', '카페'], img: 'card07.jpg', title: "교육 급식과 마음 쉼터 (12:00)", text: "프리미엄 로컬푸드 급식과 복합 문화 카페형 쉼터를 조성합니다. [cite: 21, 22]" },
-        { keys: ['화해', '중재', '다독임', '폭력'], img: 'card08.jpg', title: "다독임 화해중재단 (13:00)", text: "교육감 직속 조정관을 통해 학교 내 갈등을 회복으로 이끕니다. [cite: 23, 26]" },
-        { keys: ['입시', '네비', '정보'], img: 'card09.jpg', title: "경남 에듀-네비 (15:00)", text: "정보 격차 없는 공교육 입시 책임제를 실시합니다. [cite: 27, 29]" },
-        { keys: ['배달', '119', '찾아가는'], img: 'card10.jpg', title: "찾아가는 진학 119 (15:30)", text: "학부모님의 주거지 가까이 입시 정보를 직접 배달해 드립니다. [cite: 30, 32]" },
-        { keys: ['돌봄', '어르신', '할매', '할배'], img: 'card11.jpg', title: "온마을 할매·할배 돌봄 (16:00)", text: "농어촌 특화 돌봄으로 세대 공감과 사랑을 실천합니다. [cite: 33, 35]" },
-        { keys: ['귀가', '하교', '안전'], img: 'card12.jpg', title: "Safe-Home 안심 귀가 (16:30)", text: "디지털 방패로 아이들의 하굣길 안전을 책임지겠습니다. [cite: 36, 38]" },
-        { keys: ['연수', '패스파인더', '해외'], img: 'card13.jpg', title: "패스파인더 교사 연수 (17:00)", text: "교사가 직접 기획하는 고품격 글로벌 연수를 지원합니다. [cite: 40, 44]" },
-        { keys: ['교권', '자긍심', '존중'], img: 'card14.jpg', title: "경남 리스펙트 365 (17:30)", text: "시스템을 통한 교권 보호와 학교 업무 제로화를 추진합니다. [cite: 45, 46]" }
+        { keys: ['아침', '밥', '온케어', '식사'], img: 'card01.jpg', title: "경남형 온(溫)케어 (08:00)", text: "부모님의 아침 1시간을 여유로, 아이의 아침을 활력으로 채우겠습니다." },
+        { keys: ['튜터', '기초', '학습', '결손'], img: 'card02.jpg', title: "AI 맞춤형 튜터링 (09:00)", text: "기초 학력 결손 0%를 위한 정밀한 학습 진단을 실현합니다." },
+        { keys: ['인공지능', '인성', '기술'], img: 'card03.jpg', title: "경남 AI+H 프로젝트 (09:30)", text: "기술에 매몰되지 않는 인성 중심 첨단 교육장을 조성합니다." },
+        { keys: ['인재', '교육원', '올트먼'], img: 'card04.jpg', title: "AI 인재교육원 설립 (10:00)", text: "유능한 선생님과 최고의 시설이 있는 경남을 만듭니다." },
+        { keys: ['르네상스', '질문', '인문학'], img: 'card05.jpg', title: "경남 르네상스 AI 교육 (10:30)", text: "질문하는 힘과 생각하는 근육을 길러주는 교실을 운영합니다." },
+        { keys: ['글로벌', '브릿지', '다문화'], img: 'card06.jpg', title: "경남 글로벌 브릿지 (11:00)", text: "이주배경 학생을 글로벌 인재로 키우는 영재교육을 실시합니다." },
+        { keys: ['급식', '점심', '쉼터', '카페'], img: 'card07.jpg', title: "교육 급식과 마음 쉼터 (12:00)", text: "프리미엄 로컬푸드 급식과 복합 문화 카페형 쉼터를 조성합니다." },
+        { keys: ['화해', '중재', '다독임', '폭력'], img: 'card08.jpg', title: "다독임 화해중재단 (13:00)", text: "교육감 직속 조정관을 통해 학교 내 갈등을 회복으로 이끕니다." },
+        { keys: ['입시', '네비', '정보'], img: 'card09.jpg', title: "경남 에듀-네비 (15:00)", text: "정보 격차 없는 공교육 입시 책임제를 실시합니다." },
+        { keys: ['배달', '119', '찾아가는'], img: 'card10.jpg', title: "찾아가는 진학 119 (15:30)", text: "학부모님의 주거지 가까이 입시 정보를 직접 배달해 드립니다." },
+        { keys: ['돌봄', '어르신', '할매', '할배'], img: 'card11.jpg', title: "온마을 할매·할배 돌봄 (16:00)", text: "농어촌 특화 돌봄으로 세대 공감과 사랑을 실천합니다." },
+        { keys: ['귀가', '하교', '안전'], img: 'card12.jpg', title: "Safe-Home 안심 귀가 (16:30)", text: "디지털 방패로 아이들의 하굣길 안전을 책임지겠습니다." },
+        { keys: ['연수', '패스파인더', '해외'], img: 'card13.jpg', title: "패스파인더 교사 연수 (17:00)", text: "교사가 직접 기획하는 고품격 글로벌 연수를 지원합니다." },
+        { keys: ['교권', '자긍심', '존중'], img: 'card14.jpg', title: "경남 리스펙트 365 (17:30)", text: "시스템을 통한 교권 보호와 학교 업무 제로화를 추진합니다." }
     ];
 
     const win = document.getElementById('chat-win');
@@ -111,7 +103,7 @@
                         <span class="p-text">${f.text}</span>
                     </div>`;
             } else {
-                win.innerHTML += `<div class="msg bot-card">준비된 17가지 공약 카드 중 관련 내용을 찾아드릴게요! 😊 <b>아침밥, 입시, 돌봄</b> 등의 키워드를 입력해 보세요. [cite: 1-52]</div>`;
+                win.innerHTML += `<div class="msg bot-card">죄송합니다. 현재는 준비된 17가지 핵심 공약에 대해서만 정확한 안내가 가능합니다. 😊 <b>아침밥, 입시, 돌봄</b> 등의 단어를 입력해 보세요.</div>`;
             }
             win.scrollTop = win.scrollHeight;
         }, 350);
