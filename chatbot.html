@@ -6,42 +6,26 @@
     <title>김영곤 AI 대변인</title>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --magenta: #e20074; /* 김영곤 후보의 메인색 마젠타 */
-            --dark: #1a1a1a;
-            --light-bg: #f9f9fb;
-        }
+        :root { --magenta: #e20074; --dark: #1a1a1a; --bg: #f9f9fb; }
         body { font-family: 'Pretendard', sans-serif; background: #edeff2; margin: 0; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
         #app { width: 100%; max-width: 480px; background: white; display: flex; flex-direction: column; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
-        
-        /* 헤더: 마젠타 포인트와 세련된 폰트 */
         #header { padding: 20px; border-bottom: 2px solid var(--magenta); background: white; text-align: center; }
-        #header h1 { margin: 0; font-size: 1.2rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
+        #header h1 { margin: 0; font-size: 1.15rem; color: var(--dark); font-weight: 800; }
         #header p { margin: 5px 0 0; font-size: 0.85rem; color: var(--magenta); font-weight: 700; }
-
-        /* 채팅창: 가독성 중심의 카드 레이아웃 */
-        #chat-win { flex: 1; padding: 20px; overflow-y: auto; background: var(--light-bg); display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; }
-        .msg { max-width: 88%; animation: slideUp 0.35s ease; }
-        .bot-card { background: white; padding: 18px; border-radius: 20px; box-shadow: 0 4px 15px rgba(226, 0, 116, 0.05); border: 1px solid #f0f0f0; align-self: flex-start; }
-        .user-msg { align-self: flex-end; background: var(--dark); color: white; padding: 12px 18px; border-radius: 20px 20px 2px 20px; font-size: 0.95rem; }
-        
-        .p-title { font-weight: 700; color: var(--magenta); display: block; margin-bottom: 8px; font-size: 1.1rem; }
-        .p-text { font-size: 0.95rem; line-height: 1.7; color: #333; word-break: keep-all; }
-        .p-list { margin-top: 12px; padding: 12px; background: #fffafc; border-radius: 12px; font-size: 0.88rem; color: #555; border: 1px solid #ffeff5; }
-        .p-list b { color: var(--magenta); display: block; margin-bottom: 5px; }
-
-        /* 하단 영역: 사용 편의성 최적화 */
+        #chat-win { flex: 1; padding: 15px; overflow-y: auto; background: var(--bg); display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; }
+        .msg { max-width: 90%; animation: slideUp 0.3s ease; }
+        .bot-card { background: white; padding: 15px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eee; align-self: flex-start; }
+        .user-msg { align-self: flex-end; background: var(--dark); color: white; padding: 10px 16px; border-radius: 20px 20px 2px 20px; font-size: 0.95rem; }
+        .p-img { width: 100%; border-radius: 12px; margin-bottom: 12px; display: block; border: 1px solid #f0f0f0; }
+        .p-title { font-weight: 700; color: var(--magenta); display: block; margin-bottom: 8px; font-size: 1.05rem; }
+        .p-text { font-size: 0.92rem; line-height: 1.6; color: #333; word-break: keep-all; }
         #bottom-section { background: white; border-top: 1px solid #eee; padding: 15px; }
         .tags { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; }
         .tags::-webkit-scrollbar { display: none; }
         .tag { white-space: nowrap; padding: 9px 16px; background: white; color: var(--magenta); border-radius: 50px; font-size: 0.82rem; cursor: pointer; border: 1.5px solid var(--magenta); font-weight: 600; flex-shrink: 0; }
-        .tag:active { background: var(--magenta); color: white; }
-
         .input-row { display: flex; gap: 8px; }
-        input { flex: 1; padding: 14px 20px; border: 1px solid #ddd; border-radius: 30px; outline: none; font-size: 1rem; background: #fdfdfd; }
-        input:focus { border-color: var(--magenta); }
+        input { flex: 1; padding: 14px 20px; border: 1px solid #ddd; border-radius: 30px; outline: none; font-size: 1rem; }
         #send-btn { background: var(--magenta); color: white; border: none; padding: 0 22px; border-radius: 30px; cursor: pointer; font-weight: 700; }
-
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -51,122 +35,59 @@
         <h1>김영곤 경남교육감 예비후보 AI 대변인</h1>
         <p>아이의 하루를 책임지는 따뜻한 약속</p>
     </div>
-    
     <div id="chat-win" id="chatWin">
-        <div class="msg bot-card">
-            반갑습니다! 😊 <b>김영곤 경남교육감 예비후보</b>의 모든 정책을 안내해 드리는 AI 대변인입니다.<br><br>
-            "부모님은 사랑으로만 안아주세요. 나머지는 저 김영곤이 책임지겠습니다."<br><br>
-            궁금하신 내용을 입력하시거나 아래 <b>주요 약속</b>을 눌러보세요!
-        </div>
+        <div class="msg bot-card">안녕하세요! 김영곤 후보의 AI 대변인입니다. 😊<br>17가지 모든 약속 카드를 준비했습니다. 궁금한 점을 물어보세요!</div>
     </div>
-
     <div id="bottom-section">
         <div class="tags">
-            <div class="tag" onclick="handleTag('아침밥 정책 알려줘')">🍱 아침 든든 온케어</div>
-            <div class="tag" onclick="handleTag('입시 네비게이션이 뭐야?')">📍 입시 책임제</div>
-            <div class="tag" onclick="handleTag('화해중재단에 대해 알려줘')">🤝 다독임 화해중재</div>
-            <div class="tag" onclick="handleTag('AI 인재교육원은?')">🚀 AI 미래인재</div>
-            <div class="tag" onclick="handleTag('교권 보호 정책은?')">👩‍🏫 선생님 리스펙트</div>
-            <div class="tag" onclick="handleTag('안심 귀가 서비스')">🏠 세이프 홈</div>
+            <div class="tag" onclick="handleTag('아침밥')">🍱 아침밥</div>
+            <div class="tag" onclick="handleTag('입시 네비게이션')">📍 입시 책임제</div>
+            <div class="tag" onclick="handleTag('교권 보호')">👩‍🏫 교사 자긍심</div>
+            <div class="tag" onclick="handleTag('안심 귀가')">🏠 안심 하교</div>
+            <div class="tag" onclick="handleTag('AI 교육')">💡 AI 르네상스</div>
+            <div class="tag" onclick="handleTag('작은 학교')">🏘️ 지역 학교</div>
         </div>
-        <div class="input-row">
-            <input type="text" id="userInput" placeholder="질문을 자유롭게 입력해보세요..." onkeypress="if(event.keyCode==13) send()">
-            <button id="send-btn" onclick="send()">전송</button>
-        </div>
+        <div class="input-row"><input type="text" id="userInput" placeholder="질문을 입력하세요..."><button id="send-btn" onclick="send()">전송</button></div>
     </div>
 </div>
 
 <script>
-    // 콘티 기반 23가지 모든 공약 데이터베이스
     const db = [
-        { 
-            keys: ['아침', '밥', '식사', '케어', '굿모닝'], 
-            title: "🍱 아침 든든, 경남형 온(溫)케어", 
-            main: "부모님의 아침 1시간을 여유로, 아이의 아침을 활기찬 에너지로 채우겠습니다. 편의점 대신 따뜻한 학교 식탁을 약속합니다. [cite: 1, 2]", 
-            sub: "• 경남 로컬푸드 굿모닝 식탁 운영 [cite: 3]<br>• 아침 깨움, 신나는 몸놀림 프로그램 지원 [cite: 3]" 
-        },
-        { 
-            keys: ['학습', '학력', '기초', '튜터', '포기', '에듀체크'], 
-            title: "✏️ AI 맞춤형 튜터링", 
-            main: "기초 학력 결손 Zero! 공교육의 힘으로 학력의 사다리를 확실히 세워 아이들의 실력을 책임지겠습니다. [cite: 4]", 
-            sub: "• AI 학습 분석 플랫폼 '에듀-체크' [cite: 4]<br>• 교육감 직속 '기초학력 1:1 전담 튜터제' [cite: 4]" 
-        },
-        { 
-            keys: ['입시', '대학', '진학', '네비', '정보', '상담'], 
-            title: "📍 경남 에듀-네비 (입시 책임제)", 
-            main: "부모님의 정보력이 아이의 대학을 결정하지 않도록, 모든 아이에게 공평한 입시 정보를 배달하겠습니다. [cite: 27, 29]", 
-            sub: "• 5대 권역 거점 대입정보센터 상설화 [cite: 29]<br>• 찾아가는 진학 119 '입시 셔틀 상담소' [cite: 32]" 
-        },
-        { 
-            keys: ['교사', '교권', '선생님', '존중', '업무', '치유'], 
-            title: "👩‍🏫 경남 리스펙트(Respect) 365", 
-            main: "선생님이 행복해야 우리 아이들도 밝게 웃을 수 있습니다. 선생님의 자긍심을 시스템으로 확실히 보호하겠습니다. [cite: 45, 46]", 
-            sub: "• 교육감 직속 교권신속법률대응단 가동 [cite: 46]<br>• 학교 행정 업무 제로화 추진 [cite: 46]" 
-        },
-        { 
-            keys: ['학폭', '폭력', '갈등', '중재', '다독임', '소통'], 
-            title: "🤝 다독임(All-Care) 화해중재단", 
-            main: "갈등이 깊어지기 전, 교육감 직속 조정관이 따뜻한 소통의 다리를 놓아 학교를 다시 회복의 공간으로 만들겠습니다. [cite: 23, 25]", 
-            sub: "• 교육감 직속 갈등조정관 파견 [cite: 26]<br>• 디지털 소통 플랫폼 및 중재단 운영 [cite: 26]" 
-        },
-        { 
-            keys: ['안전', '귀가', '하교', '방패', '안심', '사고'], 
-            title: "🏠 Safe-Home 안심 귀가", 
-            main: "아이들이 학교 문을 나서는 순간부터 집 현관까지, 교육청의 디지털 방패가 든든하게 지켜주겠습니다. [cite: 36, 37]", 
-            sub: "• 스마트 안심 그리드(Grid) 구축 [cite: 38]<br>• 사람이 지키는 안심 귀가 도우미 배치 [cite: 38]" 
-        },
-        { 
-            keys: ['미래', '인공지능', '인재', '교육원', '전문가'], 
-            title: "🚀 AI 인재교육원 설립", 
-            main: "대한민국 인재 정책 전문가 저 김영곤의 실력으로, '한국의 샘 올트먼'을 경남 교실에서 키워내겠습니다. [cite: 10, 11]", 
-            sub: "• 경남 AI 미래인재 교육원 건립 [cite: 11]<br>• 교사 디지털 마스터 집중 지원 [cite: 9, 11]" 
-        },
-        { 
-            keys: ['급식', '점심', '식탁', '로컬푸드', '카페'], 
-            title: "🍱 교육 급식과 마음 쉼터", 
-            main: "급식은 생명을 존중하고 지역과 소통하는 종합 교육 예술입니다. 즐거움과 행복이 있는 점심시간을 약속합니다. [cite: 21, 22]", 
-            sub: "• 프리미엄 테마 급식 운영 [cite: 22]<br>• 학교 안 '복합 문화 카페형 쉼터' 조성 [cite: 22]" 
-        }
+        { keys: ['아침', '밥', '온케어'], img: 'card01.jpg', title: "경남형 온(溫)케어 (08:00)", text: "따뜻한 식탁으로 아이의 아침을 활력으로 채우겠습니다. " },
+        { keys: ['튜터', '기초', '학습'], img: 'card02.jpg', title: "AI 맞춤형 튜터링 (09:00)", text: "공교육의 힘으로 기초 학력 결손 0%를 실현합니다. " },
+        { keys: ['AI', '세상', '윤리'], img: 'card03.jpg', title: "AI+H 프로젝트 (09:30)", text: "AI보다 따뜻하고 창의적인 인재를 키워내겠습니다. " },
+        { keys: ['인재', '교육원', '올트먼'], img: 'card04.jpg', title: "AI 인재교육원 설립 (10:00)", text: "최고의 시설과 유능한 선생님이 계신 경남을 만듭니다. " },
+        { keys: ['르네상스', '질문', '인문학'], img: 'card05.jpg', title: "경남 르네상스 AI 교육 (10:30)", text: "AI는 답을 주지만 가치는 사람이 결정합니다. " },
+        { keys: ['글로벌', '브릿지', '다문화'], img: 'card06.jpg', title: "경남 글로벌 브릿지 (11:00)", text: "다문화 학생을 글로벌 인재로, 경남의 보석으로 키웁니다. " },
+        { keys: ['급식', '점심', '쉼터'], img: 'card07.jpg', title: "교육 급식과 마음 쉼터 (12:00)", text: "로컬푸드 기반 프리미엄 급식과 카페형 쉼터를 조성합니다. " },
+        { keys: ['화해', '중재', '다독임'], img: 'card08.jpg', title: "다독임 화해중재단 (13:00)", text: "갈등이 커지기 전 이음의 다리를 놓는 회복의 공간을 만듭니다. " },
+        { keys: ['네비', '입시', '정보'], img: 'card09.jpg', title: "경남 에듀-네비 (15:00)", text: "공교육 입시 책임제로 정보의 불공정을 끝내겠습니다. " },
+        { keys: ['배달', '119', '찾아가는'], img: 'card10.jpg', title: "찾아가는 진학 119 (15:30)", text: "입시 정보를 학부모님의 주거지 가까이 배달합니다. " },
+        { keys: ['할매', '할배', '어르신'], img: 'card11.jpg', title: "온마을 할매·할배 돌봄 (16:00)", text: "농어촌 특화 돌봄으로 세대 공감과 사랑을 전합니다. " },
+        { keys: ['귀가', '하교', '방패'], img: 'card12.jpg', title: "Safe-Home 안심 귀가 (16:30)", text: "디지털 방패로 아이의 하굣길을 끝까지 지키겠습니다. " },
+        { keys: ['연수', '패스파인더', '교사'], img: 'card13.jpg', title: "패스파인더 교사 연수 (17:00)", text: "선생님이 직접 기획하는 고품격 글로벌 연수를 지원합니다. " },
+        { keys: ['교권', '자긍심', '리스펙트'], img: 'card14.jpg', title: "경남 리스펙트 365 (17:30)", text: "선생님의 자긍심을 시스템으로 확실히 보호하겠습니다. " },
+        { keys: ['치유', '테라피', '쉼터'], img: 'card15.jpg', title: "종교 협력 마음 회복 (18:00)", text: "지역 공동체와 협력하여 선생님의 마음을 치유해 드립니다. " },
+        { keys: ['작은학교', '폐교', '마을'], img: 'card16.jpg', title: "올인원 교육 클러스터 (18:30)", text: "교육 때문에 지역을 떠나지 않는 에듀-빌리지를 조성합니다. " },
+        { keys: ['스마트폰', '쉼', '중독'], img: 'card17.jpg', title: "디지털-쉼 캠페인 (19:00)", text: "학교 안을 온전한 사유와 대화의 공간으로 되돌리겠습니다. " }
     ];
 
     const win = document.getElementById('chat-win');
     const input = document.getElementById('userInput');
-
-    function handleTag(txt) { input.value = txt; send(); }
-
+    function handleTag(t) { input.value = t; send(); }
     function send() {
-        const txt = input.value.trim();
-        if(!txt) return;
-
-        addMsg(txt, 'user-msg');
+        const t = input.value.trim(); if(!t) return;
+        win.innerHTML += `<div class="msg user-msg">${t}</div>`;
         input.value = '';
-
         setTimeout(() => {
-            // 문장 속 키워드를 분석하여 가장 적합한 답변 검색
-            let found = db.find(item => item.keys.some(k => txt.toLowerCase().includes(k)));
-            
-            if(found) {
-                const bDiv = document.createElement('div');
-                bDiv.className = 'msg bot-card';
-                bDiv.innerHTML = `
-                    <span class="p-title">${found.title}</span>
-                    <span class="p-text">${found.main}</span>
-                    <div class="p-list"><b>[핵심 실천 과제]</b>${found.sub}</div>
-                `;
-                win.appendChild(bDiv);
+            let f = db.find(i => i.keys.some(k => t.toLowerCase().includes(k)));
+            if(f) {
+                win.innerHTML += `<div class="msg bot-card"><img src="${f.img}" class="p-img"><span class="p-title">${f.title}</span><span class="p-text">${f.text}</span></div>`;
             } else {
-                const eDiv = document.createElement('div');
-                eDiv.className = 'msg bot-card';
-                eDiv.innerText = "말씀하신 내용에 대해 후보님의 정교한 약속들을 더 상세히 확인하고 정성껏 답변해 드릴게요! 😊 '아침밥', '입시', '교권' 등 핵심 키워드로 물어봐 주시면 바로 안내가 가능합니다.";
-                win.appendChild(eDiv);
+                win.innerHTML += `<div class="msg bot-card">다정하게 말씀해 주시면 17가지 공약 카드 중 딱 맞는 정보를 찾아드릴게요! 😊</div>`;
             }
             win.scrollTop = win.scrollHeight;
         }, 350);
-    }
-
-    function addMsg(t, type) {
-        const d = document.createElement('div'); d.className = `msg ${type}`; d.innerText = t;
-        win.appendChild(d); win.scrollTop = win.scrollHeight;
     }
 </script>
 </body>
